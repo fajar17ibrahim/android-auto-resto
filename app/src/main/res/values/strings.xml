@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">AutoResto</string>
+    <string name="akun">Akun</string>
+    <string name="order">Order</string>
+    <string name="menu">Menu</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_menu">Menu</string>
+    <string name="title_order">Pesanan</string>
+    <string name="title_account">Akun</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="title_food">Makanan</string>
+    <string name="status_order">Sedang dipesan</string>
+    <string name="time_order">00 Januari 2020, 00:00</string>
+    <string name="title_price">0.000</string>
+    <string name="title_drink">Minuman</string>
 </resources>
