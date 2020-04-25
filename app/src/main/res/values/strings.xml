@@ -18,4 +18,13 @@
     <string name="time_order">00 Januari 2020, 00:00</string>
     <string name="title_price">0.000</string>
     <string name="title_drink">Minuman</string>
+    <string name="title_phone">+62XXXXXXXXXXX</string>
+    <string name="title_name">Avatar</string>
+    <string name="title_email">avatar@gmail.com</string>
+    <string name="title_edit_profile">Edit Profil</string>
+    <string name="title_edit_password">Edit Password</string>
+    <string name="title_service">Layanan</string>
+    <string name="title_call_center">Hubungi Kami</string>
+    <string name="title_about">Tentang AutoResto</string>
+    <string name="title_history">Riwayat Pesanan</string>
 </resources>

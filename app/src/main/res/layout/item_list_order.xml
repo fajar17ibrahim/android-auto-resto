@@ -12,8 +12,8 @@
         android:orientation="horizontal" >
 
         <ImageView
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_margin="5dp"
             android:layout_gravity="center"
             android:background="@drawable/border_radius"
@@ -27,32 +27,29 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_name"
+                android:id="@+id/tv_order_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:textSize="17dp"
+                android:textSize="@dimen/font_size_14dp"
                 android:textStyle="bold"
-                tools:text="@string/title_food" />
+                tools:text="@string/title_order" />
 
             <TextView
-                android:id="@+id/tv_address"
+                android:id="@+id/tv_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:textSize="14dp"
-                android:maxLines="1"
+                android:textSize="@dimen/font_size_12dp"
                 tools:text="@string/status_order" />
 
             <TextView
-                android:id="@+id/tv_phone"
+                android:id="@+id/tv_created_at"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:ellipsize="end"
-                android:textSize="14dp"
+                android:textSize="@dimen/font_size_12dp"
                 android:maxLines="1"
                 tools:text="@string/time_order" />
 
