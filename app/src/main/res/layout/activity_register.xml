@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorHitam"
+    tools:context=".ui.register.RegisterActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#333333"
+        app:titleTextColor="#dddddd"
+        app:title="Daftar" />
+
+    <ScrollView
+        android:layout_marginTop="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_marginLeft="@dimen/margin_all"
+        android:layout_marginRight="@dimen/margin_all"
+        android:layout_marginBottom="@dimen/margin_all"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/name_text_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/txt_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:paddingBottom="20dp"
+                android:textSize="14dp"
+                android:hint="Name"
+                android:textColor="@color/colorPutih"
+                android:inputType="text"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@drawable/username"
+                android:drawableStart="@drawable/username"
+                android:textColorHint="@color/colorAbuMuda"
+                android:textColorHighlight="#FFFFFF"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/username_text_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/txt_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:paddingBottom="20dp"
+                android:textSize="14dp"
+                android:hint="Username"
+                android:textColor="@color/colorPutih"
+                android:inputType="text"
+                android:drawablePadding="15dp"
+                android:drawableLeft="@drawable/username"
+                android:drawableStart="@drawable/username"
+                android:textColorHint="@color/colorAbuMuda"
+                android:textColorHighlight="#FFFFFF"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/jk_text_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/txt_jk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:paddingBottom="20dp"
+                android:textSize="14dp"
+                android:hint="Jenis Kelamin ( Ex. L/P )"
+                android:textColor="@color/colorPutih"
+                android:inputType="text"
+                android:drawablePadding="8dp"
+                android:drawableLeft="@drawable/gender_white"
+                android:drawableStart="@drawable/gender_white"
+                android:textColorHint="@color/colorAbuMuda"
+                android:textColorHighlight="#FFFFFF"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tl_text_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/txt_birthdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:paddingBottom="20dp"
+                android:textSize="14dp"
+                android:hint="Tanggal Lahir ( Ex.1998-01-19 )"
+                android:textColor="@color/colorPutih"
+                android:inputType="text"
+                android:drawablePadding="8dp"
+                android:drawableLeft="@drawable/calender_white"
+                android:drawableStart="@drawable/calender_white"
+                android:textColorHint="@color/colorAbuMuda"
+                android:textColorHighlight="#FFFFFF"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/txt_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:paddingBottom="20dp"
+                android:hint="Email"
+                android:textSize="14dp"
+                android:textColor="@color/colorPutih"
+                android:inputType="textEmailAddress"
+                android:drawablePadding="12dp"
+                android:drawableLeft="@drawable/email_putih"
+                android:drawableStart="@drawable/email_putih"
+                android:textColorHint="@color/colorAbuMuda"
+                android:textColorHighlight="#FFFFFF"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/txt_telp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:paddingBottom="20dp"
+                android:hint="Telepon"
+                android:textSize="14dp"
+                android:textColor="@color/colorPutih"
+                android:inputType="number"
+                android:drawablePadding="12dp"
+                android:drawableLeft="@drawable/call_putih"
+                android:drawableStart="@drawable/call_putih"
+                android:textColorHint="@color/colorAbuMuda"
+                android:textColorHighlight="#FFFFFF"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password_text_input_layout"
+            app:passwordToggleEnabled="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/txt_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:paddingBottom="20dp"
+                android:drawablePadding="10dp"
+                android:textSize="14dp"
+                android:drawableLeft="@drawable/password_putih"
+                android:drawableStart="@drawable/password_putih"
+                android:textColor="@color/colorPutih"
+                android:textColorHint="@color/colorAbuMuda"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            app:passwordToggleEnabled="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/txt_confPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:paddingBottom="20dp"
+                android:drawablePadding="10dp"
+                android:textSize="14dp"
+                android:drawableLeft="@drawable/password_putih"
+                android:drawableStart="@drawable/password_putih"
+                android:textColor="@color/colorPutih"
+                android:textColorHint="@color/colorAbuMuda"
+                android:hint="Ulangi Password"
+                android:inputType="textPassword"
+                android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="15dp"
+            android:text="Daftar"
+            android:layout_marginTop="30dp"
+            android:textAllCaps="false"
+            android:background="@drawable/border_radius_cyan"
+            android:textColor="#fff"
+            android:textSize="14dp" />
+
+    </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
