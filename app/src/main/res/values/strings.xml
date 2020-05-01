@@ -27,4 +27,7 @@
     <string name="title_call_center">Hubungi Kami</string>
     <string name="title_about">Tentang AutoResto</string>
     <string name="title_history">Riwayat Pesanan</string>
+    <string name="status_order_1">Order selesai</string>
+    <string name="title_action_bar">Title</string>
+    <string name="title_saldo">Saldo</string>
 </resources>

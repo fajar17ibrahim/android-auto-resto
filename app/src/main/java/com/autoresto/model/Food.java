@@ -8,6 +8,9 @@ public class Food {
 
     private String price;
 
+    private boolean isChecked = false;
+
+
     public Food() {
 
     }
@@ -36,9 +39,18 @@ public class Food {
         this.price = price;
     }
 
-    public Food(String name, String photo, String price) {
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
+
+    public Food(String name, String photo, String price, boolean isChecked) {
         this.name = name;
         this.photo = photo;
         this.price = price;
+        this.isChecked = isChecked;
     }
 }

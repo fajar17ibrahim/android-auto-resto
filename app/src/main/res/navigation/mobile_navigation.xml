@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_order">
+    app:startDestination="@+id/navigation_menu">
 
     <fragment
         android:id="@+id/navigation_menu"
@@ -16,6 +16,12 @@
         android:name="com.autoresto.ui.order.OrderFragment"
         android:label="@string/title_order"
         tools:layout="@layout/fragment_order" />
+
+    <fragment
+        android:id="@+id/navigation_saldo"
+        android:name="com.autoresto.ui.saldo.SaldoFragment"
+        android:label="@string/title_saldo"
+        tools:layout="@layout/fragment_saldo" />
 
     <fragment
         android:id="@+id/navigation_account"

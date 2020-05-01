@@ -42,7 +42,7 @@ public class ListDrinkAdapter extends RecyclerView.Adapter<ListDrinkAdapter.List
 
         Glide.with(holder.itemView.getContext())
                 .load(drink.getPhoto())
-                .apply(new RequestOptions().override(100, 155))
+                .apply(new RequestOptions().override(150, 205))
                 .into(holder.imgPhoto);
 
         holder.tvName.setText(drink.getName());

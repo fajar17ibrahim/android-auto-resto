@@ -1,4 +1,4 @@
-package com.autoresto.ui.order;
+package com.autoresto.ui.saldo;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,14 +12,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.autoresto.MainActivity;
 import com.autoresto.R;
 import com.autoresto.model.Order;
+import com.autoresto.ui.order.ListOrderAdapter;
+import com.autoresto.ui.order.OrderData;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderFragment extends Fragment {
+public class SaldoFragment extends Fragment {
 
     private Toolbar toolbar;
 
@@ -34,9 +35,7 @@ public class OrderFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_order, container, false);
-
-        recyclerView = (RecyclerView) root.findViewById(R.id.rv_order);
+        View root = inflater.inflate(R.layout.fragment_saldo, container, false);
 
         showRecyclerList();
 
@@ -44,13 +43,7 @@ public class OrderFragment extends Fragment {
     }
 
     private void showRecyclerList() {
-        orderList = new ArrayList<>();
 
-        orderList.addAll(OrderData.getListData());
-
-        listOrderAdapter = new ListOrderAdapter(this, orderList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(listOrderAdapter);
 
     }
 }

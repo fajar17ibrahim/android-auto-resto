@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import com.autoresto.MainActivity;
 import com.autoresto.R;
+import com.autoresto.ui.login.LoginActivity;
 
 public class Splash extends AppCompatActivity {
 
@@ -25,7 +26,7 @@ public class Splash extends AppCompatActivity {
         ImageView imageView = (ImageView) findViewById(R.id.logo);
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.translation);
         imageView.startAnimation(animation);
-        final Intent intent = new Intent(this, MainActivity.class);
+        final Intent intent = new Intent(this, LoginActivity.class);
         Thread timer = new Thread() {
             public void run() {
                 try {

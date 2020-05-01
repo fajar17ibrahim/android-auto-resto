@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorHitam"
+    android:padding="@dimen/activity_horizontal_margin"
+    android:background="@color/color_white"
     tools:context=".ui.login.LoginActivity">
 
     <LinearLayout
-        android:layout_margin="@dimen/margin_all"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -18,10 +18,10 @@
         <ImageView
             android:id="@+id/logo"
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:layout_marginBottom="40dp"
+            android:layout_height="200dp"
             android:layout_gravity="center"
-            android:src="@drawable/logo_putih" />
+            android:src="@drawable/auto_resto_logo_2" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/username_text_input_layout"
             android:layout_width="match_parent"
@@ -33,15 +33,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textSize="14dp"
-            android:layout_margin="10dp"
             android:paddingBottom="20dp"
             android:hint="Username"
-            android:textColor="@color/colorPutih"
             android:inputType="text"
             android:drawablePadding="10dp"
-            android:drawableLeft="@drawable/username"
-            android:drawableStart="@drawable/username"
-            android:textColorHint="@color/colorAbuMuda"
+            android:drawableLeft="@drawable/ic_account_circle_black_24dp"
+            android:drawableStart="@drawable/ic_account_circle_black_24dp"
+            android:textColorHint="@color/colorPrimary"
             android:textColorHighlight="#FFFFFF"
             android:singleLine="true" />
 
@@ -58,14 +56,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
             android:paddingBottom="20dp"
             android:textSize="14dp"
             android:drawablePadding="10dp"
-            android:drawableLeft="@drawable/password_putih"
-            android:drawableStart="@drawable/password_putih"
-            android:textColor="@color/colorPutih"
-            android:textColorHint="@color/colorAbuMuda"
+            android:drawableLeft="@drawable/ic_vpn_key_black_24dp"
+            android:drawableStart="@drawable/ic_vpn_key_black_24dp"
+            android:textColorHint="@color/colorPrimary"
             android:hint="Password"
             android:inputType="textPassword"
             android:singleLine="true" />
@@ -78,12 +74,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="15dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:text="Masuk"
             android:layout_marginTop="30dp"
             android:textAllCaps="false"
-            android:background="@drawable/border_radius_cyan"
+            android:background="@drawable/border_radius"
             android:textColor="#fff"
             android:textSize="14dp" />
 
@@ -91,21 +85,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_all"
-            android:layout_marginBottom="@dimen/margin_all"
             android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPutih"
                 android:text="Belum punya akun ?" />
 
             <TextView
                 android:id="@+id/tv_daftar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPutih"
                 android:textStyle="bold"
                 android:text=" Daftar" />
         </LinearLayout>

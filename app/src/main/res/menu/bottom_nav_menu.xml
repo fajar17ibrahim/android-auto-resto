@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/navigation_menu"
         android:icon="@drawable/ic_menu"
+        android:enabled="true"
         android:title="@string/title_menu" />
 
     <item
         android:id="@+id/navigation_order"
         android:icon="@drawable/ic_order"
+        android:enabled="true"
         android:title="@string/title_order" />
+
+    <item
+        android:id="@+id/navigation_saldo"
+        android:icon="@drawable/ic_account_balance_wallet_black_24dp"
+        android:enabled="true"
+        android:title="@string/title_saldo" />
 
     <item
         android:id="@+id/navigation_account"
         android:icon="@drawable/ic_account"
+        android:enabled="true"
         android:title="@string/title_account" />
 
 </menu>
