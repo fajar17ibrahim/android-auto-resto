@@ -49,33 +49,10 @@ public class FoodFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(listFoodAdapter);
 
-        if (listFoodAdapter.getSelected() != null) {
-//                Intent iRincian = new Intent(getActivity(), RincianPesananActivity.class);
-//                Bundle data = new Bundle();
-//                data.putString("slot_id", listSlotAdapter.getSelected().getId());
-//                iRincian.putExtras(data);
-//                startActivity(iRincian);
 
-        } else {
-//            showToast("Anda belum memilih slot");
-        }
     }
 
-    private void createList() {
-        for (int i = 0; i < 20; i++) {
-            Food food = new Food();
-            food.setName("Employee " + (i + 1));
 
-            // for example to show at least one selection
-            if (i == 0) {
-                food.setChecked(true);
-            }
-            //
-
-            foodList.add(food);
-        }
-        listFoodAdapter.setFoodList(foodList);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

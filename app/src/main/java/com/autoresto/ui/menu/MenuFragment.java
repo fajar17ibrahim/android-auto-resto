@@ -13,6 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.autoresto.R;
 import com.autoresto.ui.menu.drink.DrinkFragment;
+import com.autoresto.ui.menu.drink.ListDrinkAdapter;
 import com.autoresto.ui.menu.food.FoodFragment;
 import com.google.android.material.tabs.TabLayout;
 
@@ -21,8 +22,6 @@ public class MenuFragment extends Fragment {
     private static final String TAG = "MainActivity";
 
     private SectionsPageAdapter mSectionsPageAdapter;
-
-
 
     private ViewPager mViewPager;
 
@@ -52,5 +51,7 @@ public class MenuFragment extends Fragment {
         mSectionsPageAdapter.addFragment(new FoodFragment(), "Makanan");
         mSectionsPageAdapter.addFragment(new DrinkFragment(), "Minuman");
         mViewPager.setAdapter(mSectionsPageAdapter);
+
     }
+
 }

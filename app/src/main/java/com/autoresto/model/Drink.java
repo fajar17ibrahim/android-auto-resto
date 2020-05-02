@@ -1,5 +1,8 @@
 package com.autoresto.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Drink {
 
     private String name;
@@ -7,6 +10,8 @@ public class Drink {
     private String photo;
 
     private String price;
+
+    private boolean isChecked = false;
 
     public Drink() {
 
@@ -36,9 +41,19 @@ public class Drink {
         this.price = price;
     }
 
-    public Drink(String name, String photo, String price) {
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
+
+    public Drink(String name, String photo, String price, boolean isChecked) {
         this.name = name;
         this.photo = photo;
         this.price = price;
+        this.isChecked = isChecked;
     }
+
 }

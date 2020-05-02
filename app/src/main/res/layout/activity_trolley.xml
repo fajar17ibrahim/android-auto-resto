@@ -31,6 +31,28 @@
     <RelativeLayout
         android:background="@drawable/border_radius"
         android:layout_gravity="bottom"
+        android:layout_marginBottom="105dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:padding="10dp"
+            android:drawableStart="@drawable/ic_account_balance_wallet_white_24dp"
+            android:drawablePadding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_size_14dp"
+            android:textAlignment="center"
+            android:textColor="@color/color_white"
+            android:text="100.000" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:background="@drawable/border_radius"
+        android:layout_gravity="bottom"
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -49,16 +71,15 @@
                 android:textSize="@dimen/font_size_12dp"
                 android:textAlignment="center"
                 android:textColor="@color/color_white"
-                android:text="Total belanja" />
+                android:text="3 Item |  20.000 ( Total belanja )" />
 
-            <TextView
-                android:paddingBottom="5dp"
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/font_size_17dp"
-                android:textAlignment="center"
                 android:textColor="@color/color_white"
-                android:text="100000" />
+                android:background="@color/color_orange_dark"
+                android:textSize="15dp"
+                android:text="Pesan" />
 
         </LinearLayout>
 

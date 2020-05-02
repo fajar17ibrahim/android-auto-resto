@@ -5,6 +5,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.Adapter;
+
+import com.autoresto.model.Menu;
+import com.autoresto.ui.menu.food.ListFoodAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +20,10 @@ public class SectionsPageAdapter extends FragmentPagerAdapter {
 
     private final List<String> mFragmentTitleList = new ArrayList<>();
 
+    private final List<List<Menu>> mMenuList = new ArrayList<>();
+
+   // private final List<List<Menu>> listMenu = new ArrayList<>();
+
     public SectionsPageAdapter(FragmentManager fm) {
         super(fm);
     }
@@ -23,6 +32,7 @@ public class SectionsPageAdapter extends FragmentPagerAdapter {
         mFragmentList.add(fragment);
         mFragmentTitleList.add(title);
     }
+
 
     @Nullable
     @Override

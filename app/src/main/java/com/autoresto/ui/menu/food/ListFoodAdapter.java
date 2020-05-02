@@ -26,7 +26,6 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListVi
 
     private List<Food> foodList;
 
-    private int checkedPosition = -1;
 
     public ListFoodAdapter(FoodFragment foodFragment, List<Food> foodList) {
         this.foodFragment = foodFragment;
@@ -100,18 +99,18 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListVi
 
     }
 
-    public List<Food> getAll() {
-        return foodList;
-    }
-
-    public List<Food> getSelected() {
-        List<Food> selected = new ArrayList<>();
-        for (int i = 0; i < foodList.size(); i++) {
-            if (foodList.get(i).isChecked()) {
-                selected.add(foodList.get(i));
-            }
+        public List<Food> getAll() {
+            return foodList;
         }
-        return selected;
-    }
+
+        public List<Food> getSelected() {
+            List<Food> selected = new ArrayList<>();
+            for (int i = 0; i < foodList.size(); i++) {
+                if (foodList.get(i).isChecked()) {
+                    selected.add(foodList.get(i));
+                }
+            }
+            return selected;
+        }
 
 }

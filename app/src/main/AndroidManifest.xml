@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.orderdetail.OrderDetailActivity"></activity>
+        <activity android:name=".ui.trolley.TrolleyActivity"></activity>
+        <activity android:name=".ui.orderdetail.OrderDetailActivity" />
         <activity android:name=".ui.editprofile.EditProfileActivity" />
         <activity android:name=".ui.editpassword.EditPasswordActivity" />
         <activity android:name=".ui.login.LoginActivity" />
