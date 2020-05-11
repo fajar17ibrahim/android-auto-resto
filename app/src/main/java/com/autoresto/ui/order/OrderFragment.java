@@ -1,5 +1,6 @@
 package com.autoresto.ui.order;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.autoresto.MainActivity;
 import com.autoresto.R;
 import com.autoresto.model.Order;
+import com.autoresto.ui.orderdetail.OrderDetailActivity;
+import com.autoresto.utils.Constans;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +54,15 @@ public class OrderFragment extends Fragment {
         listOrderAdapter = new ListOrderAdapter(this, orderList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(listOrderAdapter);
+
+        listOrderAdapter.setOnItemClickCallback(new ListOrderAdapter.OnItemClickCallback() {
+            @Override
+            public void onItemClicked(Order order) {
+                Intent iOrderDetail = new Intent(getActivity(), OrderDetailActivity.class);
+                iOrderDetail.putExtra(Constans.TAG_ORDER_ID, order.getId());
+                startActivity(iOrderDetail);
+            }
+        });
 
     }
 }

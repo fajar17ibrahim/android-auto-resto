@@ -1,10 +1,12 @@
 package com.autoresto.ui.menu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,15 +17,18 @@ import com.autoresto.R;
 import com.autoresto.ui.menu.drink.DrinkFragment;
 import com.autoresto.ui.menu.drink.ListDrinkAdapter;
 import com.autoresto.ui.menu.food.FoodFragment;
+import com.autoresto.ui.trolley.TrolleyActivity;
 import com.google.android.material.tabs.TabLayout;
 
-public class MenuFragment extends Fragment {
+public class MenuFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "MainActivity";
 
     private SectionsPageAdapter mSectionsPageAdapter;
 
     private ViewPager mViewPager;
+
+    private Button btnAddTrolley;
 
     @Nullable
     @Override
@@ -43,6 +48,9 @@ public class MenuFragment extends Fragment {
         TabLayout tabLayout = (TabLayout) root.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
+        btnAddTrolley = (Button) root.findViewById(R.id.btn_add_trolley);
+        btnAddTrolley.setOnClickListener(this);
+
         return root;
     }
 
@@ -54,4 +62,13 @@ public class MenuFragment extends Fragment {
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_add_trolley:
+                Intent iTrolley = new Intent(getContext(), TrolleyActivity.class);
+                startActivity(iTrolley);
+                break;
+        }
+    }
 }

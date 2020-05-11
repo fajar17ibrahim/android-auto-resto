@@ -19,9 +19,15 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.List
 
     private OrderFragment orderFragment;
 
+    private OnItemClickCallback onItemClickCallback;
+
     public ListOrderAdapter(OrderFragment orderFragment, List<Order> orderList) {
         this.orderList = orderList;
         this.orderFragment = orderFragment;
+    }
+
+    public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback;
     }
 
     @NonNull
@@ -32,12 +38,19 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.List
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ListOrderAdapter.ListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ListOrderAdapter.ListViewHolder holder, int position) {
         Order order = orderList.get(position);
 
         holder.tvOrderId.setText(order.getId());
         holder.tvStatus.setText(order.getStatus());
         holder.tvCreatedAt.setText(order.getCreated_at());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickCallback.onItemClicked(orderList.get(holder.getAdapterPosition()));
+            }
+        });
 
     }
 
@@ -57,5 +70,9 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.List
             tvStatus = itemView.findViewById(R.id.tv_status);
             tvCreatedAt = itemView.findViewById(R.id.tv_created_at);
         }
+    }
+
+    public interface OnItemClickCallback {
+        void onItemClicked(Order order);
     }
 }

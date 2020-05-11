@@ -1,8 +1,6 @@
 package com.autoresto.model;
 
-import java.util.List;
-
-public class Menu {
+public class OrderDetail {
 
     private String id;
 
@@ -14,7 +12,13 @@ public class Menu {
 
     private String category;
 
-    public Menu() {
+    private String note;
+
+    private String qty;
+
+    private String total;
+
+    public OrderDetail() {
 
     }
 
@@ -58,11 +62,38 @@ public class Menu {
         this.category = category;
     }
 
-    public Menu(String id, String name, String price, String photo, String category) {
+    public String getQty() {
+        return qty;
+    }
+
+    public void setQty(String qty) {
+        this.qty = qty;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
+    }
+
+    public OrderDetail(String id, String name, String price, String photo, String category, String note, String qty, String total) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.photo = photo;
         this.category = category;
+        this.note = note;
+        this.qty = qty;
+        this.total = total;
     }
 }
