@@ -37,15 +37,16 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:id="@+id/tv_saldo"
             android:padding="10dp"
-            android:drawableStart="@drawable/ic_account_balance_wallet_white_24dp"
+            android:drawableTop="@drawable/ic_account_balance_wallet_white_24dp"
             android:drawablePadding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/font_size_14dp"
             android:textAlignment="center"
             android:textColor="@color/color_white"
-            android:text="100.000" />
+            android:text="500.000" />
 
     </RelativeLayout>
 
@@ -63,6 +64,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_total_price"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:layout_width="match_parent"
@@ -70,9 +72,10 @@
                 android:textSize="@dimen/font_size_12dp"
                 android:textAlignment="center"
                 android:textColor="@color/color_white"
-                android:text="3 Item |  20.000 ( Total belanja )" />
+                android:text="0 Item |  0.000 ( Total belanja )" />
 
             <Button
+                android:id="@+id/btn_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_white"

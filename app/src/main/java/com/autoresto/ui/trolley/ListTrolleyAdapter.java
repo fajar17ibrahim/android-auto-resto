@@ -13,6 +13,7 @@ import com.autoresto.model.Trolley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListTrolleyAdapter extends RecyclerView.Adapter<ListTrolleyAdapter.ListViewHolder> {
@@ -57,8 +58,12 @@ public class ListTrolleyAdapter extends RecyclerView.Adapter<ListTrolleyAdapter.
             @Override
             public void onClick(View v) {
                 trolleyList.get(position).setQty(trolleyList.get(position).getQty()+1);
-                holder.tvCount.setText(String.valueOf(trolleyList.get(position).getQty()));
-                holder.tvQty.setText(String.valueOf(trolleyList.get(position).getQty()));
+                int price = Integer.parseInt(trolleyList.get(position).getPrice());
+                int qty = trolleyList.get(position).getQty();
+                int total = qty*price;
+                trolleyList.get(position).setTotal(String.valueOf(total));
+                holder.tvCount.setText(String.valueOf(qty));
+                holder.tvQty.setText(String.valueOf(qty));
             }
         });
 
@@ -68,8 +73,12 @@ public class ListTrolleyAdapter extends RecyclerView.Adapter<ListTrolleyAdapter.
                 if (trolley.getQty() > 1 ) {
                     trolleyList.get(position).setQty(trolleyList.get(position).getQty() - 1);
                 }
-                holder.tvCount.setText(String.valueOf(trolleyList.get(position).getQty()));
-                holder.tvQty.setText(String.valueOf(trolleyList.get(position).getQty()));
+                int price = Integer.parseInt(trolleyList.get(position).getPrice());
+                int qty = trolleyList.get(position).getQty();
+                int total = qty*price;
+                trolleyList.get(position).setTotal(String.valueOf(total));
+                holder.tvCount.setText(String.valueOf(qty));
+                holder.tvQty.setText(String.valueOf(qty));
             }
         });
     }
@@ -96,5 +105,13 @@ public class ListTrolleyAdapter extends RecyclerView.Adapter<ListTrolleyAdapter.
             tvCount = (TextView) itemView.findViewById(R.id.tv_count);
             imgPhoto = (ImageView) itemView.findViewById(R.id.img_menu);
         }
+    }
+
+    public List<Trolley> getSelected() {
+        List<Trolley> selected = new ArrayList<>();
+        for (int i = 0; i < trolleyList.size(); i++) {
+                selected.add(trolleyList.get(i));
+        }
+        return selected;
     }
 }
