@@ -1,9 +1,16 @@
 package com.autoresto.ui.saldo;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
@@ -14,36 +21,70 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.autoresto.R;
 import com.autoresto.model.Order;
+import com.autoresto.model.User;
+import com.autoresto.ui.account.AccountContract;
+import com.autoresto.ui.account.AccountPresenter;
 import com.autoresto.ui.order.ListOrderAdapter;
 import com.autoresto.ui.order.OrderData;
+import com.autoresto.utils.Constans;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SaldoFragment extends Fragment {
+public class SaldoFragment extends Fragment implements AccountContract.View {
 
-    private Toolbar toolbar;
+    private SharedPreferences sharedPreferences;
 
-    private ActionBar actionBar;
+    private String token;
 
-    private RecyclerView recyclerView;
+    private AccountPresenter accountPresenter;
 
-    private ListOrderAdapter listOrderAdapter;
+    private ProgressBar progressBar;
 
-    private List<Order> orderList;
+    private TextView tvBalance;
+    private TextView tvVirtualAccount;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_saldo, container, false);
 
-        showRecyclerList();
+        sharedPreferences = getActivity().getSharedPreferences(Constans.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(Constans.TAG_TOKEN, "token");
+        Log.d("Token ", token);
+
+        progressBar = (ProgressBar) root.findViewById(R.id.pb_loading);
+
+        tvBalance = (TextView) root.findViewById(R.id.tv_balance);
+        tvVirtualAccount = (TextView) root.findViewById(R.id.tv_virtual_account);
+
+        accountPresenter = new AccountPresenter(this);
+        accountPresenter.requestDataFromServer(token);
 
         return root;
     }
 
-    private void showRecyclerList() {
 
+    @Override
+    public void showProgress() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
 
+    @Override
+    public void hideProgress() {
+        progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setDataToViews(User user) {
+        tvBalance.setText(String.valueOf(user.getBalance()));
+        tvVirtualAccount.setText(user.getVirtual_account());
+    }
+
+    @Override
+    public void onResponseFailure(Throwable throwable) {
+        Log.e("Error Response ", throwable.getMessage());
+        Toast.makeText(getActivity(), "Data gagal dimuat.", Toast.LENGTH_LONG).show();
     }
 }

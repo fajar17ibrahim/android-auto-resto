@@ -2,16 +2,16 @@ package com.autoresto.ui.trolley;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.autoresto.R;
 import com.autoresto.model.Trolley;
@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrolleyActivity extends AppCompatActivity {
+
+    private Animation anim_show;
+    private Animation anim_hide;
 
     private RecyclerView recyclerView;
 
@@ -30,15 +33,10 @@ public class TrolleyActivity extends AppCompatActivity {
     private TextView tvTotalPrice;
     private TextView tvSaldo;
 
+    private RelativeLayout rlSaldo;
+
     private Button btnOrder;
 
-    private int pageNo = 1;
-
-    //Constants for load more
-    private int previousTotal = 0;
-    private boolean loading = true;
-    private int visibleThreshold = 5;
-    int firstVisibleItem, visibleItemCount, totalItemCount;
     private LinearLayoutManager mLayoutManager;
 
     @Override
@@ -48,6 +46,11 @@ public class TrolleyActivity extends AppCompatActivity {
 
         tvTotalPrice = (TextView) findViewById(R.id.tv_total_price);
         tvSaldo = (TextView) findViewById(R.id.tv_saldo);
+
+        rlSaldo = (RelativeLayout) findViewById(R.id.rl_saldo);
+
+        anim_show = AnimationUtils.loadAnimation(this, R.anim.alpha_show);
+        anim_hide = AnimationUtils.loadAnimation(this, R.anim.alpha_hide);
 
         btnOrder = (Button) findViewById(R.id.btn_order);
 
@@ -76,7 +79,8 @@ public class TrolleyActivity extends AppCompatActivity {
         trolleyList.addAll(TrolleyData.getListData());
 
         listTrolleyAdapter = new ListTrolleyAdapter(this, trolleyList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mLayoutManager  = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(listTrolleyAdapter);
 
         btnOrder.setOnClickListener(new View.OnClickListener() {
@@ -106,28 +110,13 @@ public class TrolleyActivity extends AppCompatActivity {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                visibleItemCount = recyclerView.getChildCount();
-                totalItemCount = mLayoutManager.getItemCount();
-                firstVisibleItem = mLayoutManager.findFirstVisibleItemPosition();
-
-                // Handling the infinite scroll
-                if (loading) {
-                    if (totalItemCount > previousTotal) {
-                        loading = false;
-                        previousTotal = totalItemCount;
-                    }
-                }
-//                if (!loading && (totalItemCount - visibleItemCount)
-//                        <= (firstVisibleItem + visibleThreshold)) {
-//                    movieListPresenter.getMoreData(pageNo);
-//                    loading = true;
-//                }
-
-                // Hide and show Filter button
-                if (dy > 0 && tvSaldo.getVisibility() == View.VISIBLE) {
-                    tvSaldo.setVisibility(View.GONE);
-                } else if (dy < 0 && tvSaldo.getVisibility() != View.VISIBLE) {
-                    tvSaldo.setVisibility(View.VISIBLE);
+                // Hide and show Saldo
+                if (dy > 0 && rlSaldo.getVisibility() == View.VISIBLE) {
+                    rlSaldo.startAnimation(anim_hide);
+                    rlSaldo.setVisibility(View.GONE);
+                } else if (dy < 0 && rlSaldo.getVisibility() != View.VISIBLE) {
+                    rlSaldo.startAnimation(anim_show);
+                    rlSaldo.setVisibility(View.VISIBLE);
                 }
             }
         });

@@ -40,24 +40,15 @@
             android:paddingBottom="5dp"
             android:orientation="vertical">
 
-            <TextView
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/font_size_12dp"
-                android:textAlignment="center"
-                android:textColor="@color/color_white"
-                android:text="Total belanja" />
 
             <TextView
-                android:paddingBottom="5dp"
+                android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/font_size_17dp"
                 android:textAlignment="center"
                 android:textColor="@color/color_white"
-                android:text="100000" />
+                android:text="0 Item | 100.000 ( Total belanja )" />
 
         </LinearLayout>
 
