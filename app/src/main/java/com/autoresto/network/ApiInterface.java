@@ -1,6 +1,8 @@
 package com.autoresto.network;
 
 
+import com.autoresto.model.Menu;
+import com.autoresto.model.Order;
 import com.autoresto.model.User;
 
 import java.util.List;
@@ -24,5 +26,16 @@ public interface ApiInterface {
 
     @GET("auth/profile")
     Call<User> getProfile(@Header("Authorization") String bearer);
+
+
+    @GET("menu/by-category/1")
+    Call<List<Menu>> getFoods(@Header("Authorization") String bearer);
+
+    @GET("menu/by-category/2")
+    Call<List<Menu>> getDrinks(@Header("Authorization") String bearer);
+
+    @GET("order/signed-user/list-ordered")
+    Call<List<Order>> getOrders(@Header("Authorization") String bearer);
+
 
 }

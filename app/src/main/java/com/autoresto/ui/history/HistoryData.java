@@ -18,8 +18,8 @@ public class HistoryData {
         List<Order> list = new ArrayList<>();
         for(String[] aData : data) {
             Order order = new Order();
-            order.setId(aData[0]);
-            order.setStatus(aData[1]);
+            order.setNote(aData[0]);
+            order.setAccepted(aData[1]);
             order.setCreated_at(aData[2]);
 
             list.add(order);

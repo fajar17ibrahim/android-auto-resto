@@ -7,29 +7,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.autoresto.R;
-import com.autoresto.model.Order;
 import com.autoresto.model.User;
 import com.autoresto.ui.account.AccountContract;
 import com.autoresto.ui.account.AccountPresenter;
-import com.autoresto.ui.order.ListOrderAdapter;
-import com.autoresto.ui.order.OrderData;
 import com.autoresto.utils.Constans;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class SaldoFragment extends Fragment implements AccountContract.View {
 
@@ -78,7 +67,7 @@ public class SaldoFragment extends Fragment implements AccountContract.View {
 
     @Override
     public void setDataToViews(User user) {
-        tvBalance.setText(String.valueOf(user.getBalance()));
+        tvBalance.setText("Rp " + user.getBalance());
         tvVirtualAccount.setText(user.getVirtual_account());
     }
 

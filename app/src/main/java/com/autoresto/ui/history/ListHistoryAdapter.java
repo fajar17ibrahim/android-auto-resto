@@ -36,7 +36,7 @@ public class ListHistoryAdapter extends RecyclerView.Adapter<ListHistoryAdapter.
         Order order = orderList.get(position);
 
         holder.tvOrderId.setText(order.getId());
-        holder.tvStatus.setText(order.getStatus());
+        holder.tvStatus.setText("Order selesai");
         holder.tvCreatedAt.setText(order.getCreated_at());
 
     }

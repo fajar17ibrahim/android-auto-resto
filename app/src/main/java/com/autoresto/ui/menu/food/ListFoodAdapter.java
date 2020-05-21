@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.autoresto.R;
 import com.autoresto.model.Food;
+import com.autoresto.model.Menu;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -24,15 +24,15 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListVi
 
     private FoodFragment foodFragment;
 
-    private List<Food> foodList;
+    private List<Menu> foodList;
 
 
-    public ListFoodAdapter(FoodFragment foodFragment, List<Food> foodList) {
+    public ListFoodAdapter(FoodFragment foodFragment, List<Menu> foodList) {
         this.foodFragment = foodFragment;
         this.foodList = foodList;
     }
 
-    public void setFoodList(List<Food> foodList) {
+    public void setFoodList(List<Menu> foodList) {
         this.foodList = new ArrayList<>();
         this.foodList = foodList;
         notifyDataSetChanged();
@@ -47,15 +47,18 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListVi
 
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
-        Food food = foodList.get(position);
+        Menu food = foodList.get(position);
 
-        Glide.with(holder.itemView.getContext())
-                .load(food.getPhoto())
-                .apply(new RequestOptions().override(150, 205))
-                .into(holder.imgPhoto);
+        if(food.getPhoto() != null ) {
+            Glide.with(holder.itemView.getContext())
+                    .load(food.getPhoto())
+                    .apply(new RequestOptions().override(150, 205))
+                    .into(holder.imgPhoto);
+        }
 
         holder.tvName.setText(food.getName());
-        holder.tvPrice.setText(food.getPrice());
+        holder.tvDescription.setText(food.getDescription());
+        holder.tvPrice.setText(String.valueOf("Rp " + food.getPrice()));
 
         holder.bind(foodList.get(position));
 
@@ -68,7 +71,7 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListVi
 
     public class ListViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvName, tvPrice;
+        TextView tvName, tvPrice, tvDescription;
         ImageView imgPhoto, imgBgOrder, imgOrder;
 
         public ListViewHolder(@NonNull View itemView) {
@@ -76,13 +79,14 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListVi
 
             tvName = itemView.findViewById(R.id.tv_food);
             tvPrice = itemView.findViewById(R.id.tv_price);
+            tvDescription = itemView.findViewById(R.id.tv_description);
             imgPhoto = itemView.findViewById(R.id.img_item_food);
             imgBgOrder = itemView.findViewById(R.id.bg_select_menu);
             imgOrder = itemView.findViewById(R.id.img_select_menu);
 
         }
 
-        void bind(final Food food) {
+        void bind(final Menu food) {
             imgBgOrder.setVisibility(food.isChecked() ? View.VISIBLE : View.GONE);
             imgOrder.setVisibility(food.isChecked() ? View.VISIBLE : View.GONE);
 
@@ -99,12 +103,12 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListVi
 
     }
 
-        public List<Food> getAll() {
+        public List<Menu> getAll() {
             return foodList;
         }
 
-        public List<Food> getSelected() {
-            List<Food> selected = new ArrayList<>();
+        public List<Menu> getSelected() {
+            List<Menu> selected = new ArrayList<>();
             for (int i = 0; i < foodList.size(); i++) {
                 if (foodList.get(i).isChecked()) {
                     selected.add(foodList.get(i));

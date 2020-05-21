@@ -41,8 +41,8 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.List
     public void onBindViewHolder(@NonNull final ListOrderAdapter.ListViewHolder holder, int position) {
         Order order = orderList.get(position);
 
-        holder.tvOrderId.setText(order.getId());
-        holder.tvStatus.setText(order.getStatus());
+        holder.tvOrderId.setText(order.getQr_code());
+        holder.tvStatus.setText("Pesanan sedang diproses");
         holder.tvCreatedAt.setText(order.getCreated_at());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

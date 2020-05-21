@@ -1,28 +1,34 @@
 package com.autoresto.model;
 
-import java.util.List;
+import com.google.gson.annotations.SerializedName;
 
 public class Menu {
 
-    private String id;
+    @SerializedName("id")
+    private int id;
 
+    @SerializedName("name")
     private String name;
 
-    private String price;
+    @SerializedName("description")
+    private String description;
 
+    @SerializedName("price")
+    private float price;
+
+    @SerializedName("stok")
+    private int stok;
+
+    @SerializedName("photo")
     private String photo;
 
-    private String category;
+    private boolean checked;
 
-    public Menu() {
-
-    }
-
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -34,12 +40,28 @@ public class Menu {
         this.name = name;
     }
 
-    public String getPrice() {
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(float price) {
         this.price = price;
+    }
+
+    public int getStok() {
+        return stok;
+    }
+
+    public void setStok(int stok) {
+        this.stok = stok;
     }
 
     public String getPhoto() {
@@ -50,19 +72,21 @@ public class Menu {
         this.photo = photo;
     }
 
-    public String getCategory() {
-        return category;
+    public boolean isChecked() {
+        return checked;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 
-    public Menu(String id, String name, String price, String photo, String category) {
+    public Menu(int id, String name, String description, float price, int stok, String photo, boolean checked) {
         this.id = id;
         this.name = name;
+        this.description = description;
         this.price = price;
+        this.stok = stok;
         this.photo = photo;
-        this.category = category;
+        this.checked = checked;
     }
 }
