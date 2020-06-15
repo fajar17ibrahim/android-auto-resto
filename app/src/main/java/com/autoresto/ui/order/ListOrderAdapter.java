@@ -21,7 +21,7 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.List
 
     private OnItemClickCallback onItemClickCallback;
 
-    public ListOrderAdapter(OrderFragment orderFragment, List<Order> orderList) {
+    public ListOrderAdapter(List<Order> orderList, OrderFragment orderFragment) {
         this.orderList = orderList;
         this.orderFragment = orderFragment;
     }

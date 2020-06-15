@@ -34,7 +34,7 @@ public class OrderPresenter implements OrderContract.Presenter, OrderContract.Mo
 
     @Override
     public void onDestroy() {
-        orderView = null;
+        this.orderView = null;
     }
 
     @Override

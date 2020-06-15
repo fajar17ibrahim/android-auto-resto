@@ -2,64 +2,29 @@ package com.autoresto.model;
 
 public class Trolley {
 
-    private String id;
+    private int id;
 
-    private String name;
+    private Menu menu;
 
-    private String price;
-
-    private String photo;
-
-    private String category;
-
+    private Integer qty;
+    private Float sub_total;
     private String note;
 
-    private int qty;
 
-    private String total;
-
-    public Trolley() {
-
-    }
-
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Menu getMenu() {
+        return menu;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
+    public void setMenu(Menu menu) {
+        this.menu = menu;
     }
 
     public String getNote() {
@@ -78,22 +43,24 @@ public class Trolley {
         this.qty = qty;
     }
 
-    public String getTotal() {
-        return total;
+    public void setQty(Integer qty) {
+        this.qty = qty;
     }
 
-    public void setTotal(String total) {
-        this.total = total;
+    public Float getSub_total() {
+        return sub_total;
     }
 
-    public Trolley(String id, String name, String price, String photo, String category, String note, int qty, String total) {
+    public void setSub_total(Float sub_total) {
+        this.sub_total = sub_total;
+    }
+
+    public Trolley(int id, Menu menu, String note, Integer qty, Float sub_total, String note1) {
         this.id = id;
-        this.name = name;
-        this.price = price;
-        this.photo = photo;
-        this.category = category;
+        this.menu = menu;
         this.note = note;
         this.qty = qty;
-        this.total = total;
+        this.sub_total = sub_total;
+        this.note = note1;
     }
 }

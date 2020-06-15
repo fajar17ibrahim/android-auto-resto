@@ -48,7 +48,7 @@ public class OrderDetailActivity extends AppCompatActivity {
     private void showRecyclerList() {
         orderDetailList = new ArrayList<>();
 
-        orderDetailList.addAll(OrderDetailData.getListData());
+       // orderDetailList.addAll(OrderDetailData.getListData());
 
         listOrderDetailAdapter = new ListOrderDetailAdapter(this, orderDetailList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

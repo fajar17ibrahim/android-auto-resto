@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.autoresto.R;
-import com.autoresto.model.Drink;
+import com.autoresto.holder.TroliHolder;
 import com.autoresto.model.Menu;
 import com.autoresto.utils.Constans;
 
@@ -42,6 +42,19 @@ public class DrinkFragment extends Fragment implements DrinkContract.View, ShowE
     private ListDrinkAdapter listDrinkAdapter;
 
     private RecyclerView recyclerView;
+    TroliHolder troliHolder;
+
+    public void onAttachToParentFragment(Fragment childfragment) {
+        try {
+
+            troliHolder = (TroliHolder) childfragment;
+        } catch (ClassCastException e) {
+            throw new IllegalStateException("Parent Frag e t must implement EmployeeDataHolder interface");
+        }
+
+    }
+
+
 
     @Nullable
     @Override
@@ -63,12 +76,14 @@ public class DrinkFragment extends Fragment implements DrinkContract.View, ShowE
         drinkPresenter = new DrinkPresenter(this);
         drinkPresenter.requestDataFromServer(token);
 
-        shoeRecyclerList();
+        showRecyclerList();
+
+//        onAttachToParentFragment(getParentFragment());
 
         return root;
     }
 
-    private void shoeRecyclerList() {
+    private void showRecyclerList() {
         drinkList = new ArrayList<>();
 
         listDrinkAdapter = new ListDrinkAdapter(this, drinkList);

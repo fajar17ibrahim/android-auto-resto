@@ -1,10 +1,10 @@
-package com.autoresto.ui.order;
+package com.autoresto.ui.history;
 
 import com.autoresto.model.Order;
 
 import java.util.List;
 
-public interface OrderContract {
+public interface HistoryContract {
 
     interface Model {
 
@@ -15,7 +15,7 @@ public interface OrderContract {
             void onFailure(Throwable t);
         }
 
-        void getOrder(OnFinishedListener onFinishedListener, String token);
+        void getHistory(OnFinishedListener onFinishedListener, String token);
     }
 
     interface View {

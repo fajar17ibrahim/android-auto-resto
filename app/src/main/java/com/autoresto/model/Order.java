@@ -2,6 +2,8 @@ package com.autoresto.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Order {
 
     @SerializedName("id")
@@ -19,26 +21,17 @@ public class Order {
     @SerializedName("payed")
     private boolean payed;
 
-    @SerializedName("accepted")
-    private String accepted;
-
-    @SerializedName("rejected")
-    private String rejected;
-
-    @SerializedName("finished")
-    private String finished;
-
-    @SerializedName("note")
-    private String note;
-
     @SerializedName("created_at")
     private String created_at;
 
+    @SerializedName("customer")
     private User user;
 
-    public Order() {
+    @SerializedName("table")
+    private Table table;
 
-    }
+    @SerializedName("order_details")
+    private List<OrderDetail> orderDetailList;
 
     public int getId() {
         return id;
@@ -80,38 +73,6 @@ public class Order {
         this.payed = payed;
     }
 
-    public String getAccepted() {
-        return accepted;
-    }
-
-    public void setAccepted(String accepted) {
-        this.accepted = accepted;
-    }
-
-    public String getRejected() {
-        return rejected;
-    }
-
-    public void setRejected(String rejected) {
-        this.rejected = rejected;
-    }
-
-    public String getFinished() {
-        return finished;
-    }
-
-    public void setFinished(String finished) {
-        this.finished = finished;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
     public String getCreated_at() {
         return created_at;
     }
@@ -128,17 +89,31 @@ public class Order {
         this.user = user;
     }
 
-    public Order(int id, String qr_code, float total, String date, boolean payed, String accepted, String rejected, String finished, String note, String created_at, User user) {
+    public Table getTable() {
+        return table;
+    }
+
+    public void setTable(Table table) {
+        this.table = table;
+    }
+
+    public List<OrderDetail> getOrderDetailList() {
+        return orderDetailList;
+    }
+
+    public void setOrderDetailList(List<OrderDetail> orderDetailList) {
+        this.orderDetailList = orderDetailList;
+    }
+
+    public Order(int id, String qr_code, float total, String date, boolean payed, String created_at, User user, Table table, List<OrderDetail> orderDetailList) {
         this.id = id;
         this.qr_code = qr_code;
         this.total = total;
         this.date = date;
         this.payed = payed;
-        this.accepted = accepted;
-        this.rejected = rejected;
-        this.finished = finished;
-        this.note = note;
         this.created_at = created_at;
         this.user = user;
+        this.table = table;
+        this.orderDetailList = orderDetailList;
     }
 }

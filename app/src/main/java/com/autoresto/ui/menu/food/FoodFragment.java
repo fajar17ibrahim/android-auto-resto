@@ -20,10 +20,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.autoresto.R;
 import com.autoresto.model.Menu;
+import com.autoresto.model.Trolley;
 import com.autoresto.utils.Constans;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.String.valueOf;
 
 public class FoodFragment extends Fragment implements FoodContract.View, ShowEmptyView {
 
@@ -39,9 +43,16 @@ public class FoodFragment extends Fragment implements FoodContract.View, ShowEmp
 
     private List<Menu> foodList;
 
-    private ListFoodAdapter listFoodAdapter;
+    public ListFoodAdapter listFoodAdapter;
 
     private RecyclerView recyclerView;
+
+    private int qty = 1;
+
+    private int[] id;
+
+    private float[] price;
+
 
     @Nullable
     @Override

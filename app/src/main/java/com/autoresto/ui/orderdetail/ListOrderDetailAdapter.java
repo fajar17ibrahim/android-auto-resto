@@ -39,16 +39,16 @@ public class ListOrderDetailAdapter extends RecyclerView.Adapter<ListOrderDetail
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
             OrderDetail orderDetail = orderDetailList.get(position);
 
-            Glide.with(holder.itemView.getContext())
-            .load(orderDetail.getPhoto())
-            .apply(new RequestOptions().override(150, 205))
-            .into(holder.imgPhoto);
+//            Glide.with(holder.itemView.getContext())
+//            .load(orderDetail.getPhoto())
+//            .apply(new RequestOptions().override(150, 205))
+//            .into(holder.imgPhoto);
 
-            holder.tvName.setText(orderDetail.getName());
+           // holder.tvName.setText(orderDetail.getName());
             holder.tvNote.setText(orderDetail.getNote());
-            holder.tvPrice.setText(orderDetail.getPrice());
+           // holder.tvPrice.setText(orderDetail.getPrice());
             holder.tvQty.setText(orderDetail.getQty());
-            holder.tvTotal.setText("Rp "+orderDetail.getTotal());
+          //  holder.tvTotal.setText("Rp "+orderDetail.getTotal());
 
             }
 

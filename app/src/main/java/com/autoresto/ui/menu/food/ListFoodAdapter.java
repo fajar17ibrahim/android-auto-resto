@@ -9,11 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
-
 import com.autoresto.R;
-import com.autoresto.model.Food;
 import com.autoresto.model.Menu;
+import com.autoresto.session.TroliData;
+import com.autoresto.session.TroliSession;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -97,10 +96,23 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListVi
                     imgBgOrder.setVisibility(food.isChecked() ? View.VISIBLE : View.GONE);
                     imgOrder.setVisibility(food.isChecked() ? View.VISIBLE : View.GONE);
 
+                    TroliData data = new TroliData();
+                    data.setMenu(food);
+                    data.setQty(1);
+                    data.setNote("");
+                    data.setSub_total(food.getPrice());
+
+                    TroliSession troliSession = TroliSession.getInstance();
+
+                    if(food.isChecked()) {
+                        troliSession.addtroliData(data);
+                    } else {
+                        troliSession.removetroliData(data);
+                    }
+
                 }
             });
         }
-
     }
 
         public List<Menu> getAll() {

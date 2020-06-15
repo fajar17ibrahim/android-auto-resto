@@ -11,15 +11,12 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.autoresto.MainActivity;
 import com.autoresto.R;
 import com.autoresto.model.Order;
 import com.autoresto.ui.orderdetail.OrderDetailActivity;
@@ -27,6 +24,7 @@ import com.autoresto.utils.Constans;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class OrderFragment extends Fragment implements OrderContract.View, ShowEmptyView {
 
@@ -44,7 +42,7 @@ public class OrderFragment extends Fragment implements OrderContract.View, ShowE
 
     private ListOrderAdapter listOrderAdapter;
 
-    private List<Order> orderList;
+    private List<Order> list;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -52,6 +50,7 @@ public class OrderFragment extends Fragment implements OrderContract.View, ShowE
         View root = inflater.inflate(R.layout.fragment_order, container, false);
 
         recyclerView = (RecyclerView) root.findViewById(R.id.rv_order);
+
         sharedPreferences = getActivity().getSharedPreferences(Constans.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
         token = sharedPreferences.getString(Constans.TAG_TOKEN, "token");
         Log.d("Token ", token);
@@ -69,9 +68,9 @@ public class OrderFragment extends Fragment implements OrderContract.View, ShowE
     }
 
     private void showRecyclerList() {
-        orderList = new ArrayList<>();
+        list = new ArrayList<>();
 
-        listOrderAdapter = new ListOrderAdapter(this, orderList);
+        listOrderAdapter = new ListOrderAdapter(list, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(listOrderAdapter);
 
@@ -83,7 +82,6 @@ public class OrderFragment extends Fragment implements OrderContract.View, ShowE
                 startActivity(iOrderDetail);
             }
         });
-
     }
 
     @Override
@@ -104,7 +102,7 @@ public class OrderFragment extends Fragment implements OrderContract.View, ShowE
 
     @Override
     public void setDataToViews(List<Order> orderList) {
-        orderList.addAll(orderList);
+        list.addAll(orderList);
     }
 
     @Override
@@ -116,7 +114,8 @@ public class OrderFragment extends Fragment implements OrderContract.View, ShowE
     @Override
     public void showEmptyView() {
         recyclerView.setVisibility(View.GONE);
-        tvNoData.setVisibility(View.VISIBLE);    }
+        tvNoData.setVisibility(View.VISIBLE);
+        }
 
     @Override
     public void hideEmptyView() {

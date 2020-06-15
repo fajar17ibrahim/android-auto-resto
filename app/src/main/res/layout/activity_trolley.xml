@@ -22,8 +22,21 @@
             android:id="@+id/rv_order"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="100dp"
+            android:layout_marginBottom="80dp"
             tools:listitem="@layout/item_list_trolley" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:id="@+id/pb_loading"
+                style="@style/Base.Widget.AppCompat.ProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 
@@ -31,7 +44,7 @@
         android:id="@+id/rl_saldo"
         android:background="@drawable/border_radius"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="105dp"
+        android:layout_marginBottom="85dp"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_width="wrap_content"
@@ -39,16 +52,16 @@
 
         <TextView
             android:id="@+id/tv_saldo"
-            android:padding="10dp"
-            android:drawableTop="@drawable/ic_account_balance_wallet_white_24dp"
-            android:drawablePadding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/font_size_14dp"
+            android:drawableTop="@drawable/ic_account_balance_wallet_white_24dp"
+            android:drawablePadding="10dp"
+            android:padding="10dp"
+            android:text="Rp. 0,-"
             android:textAlignment="center"
-            app:elevation="3dp"
             android:textColor="@color/color_white"
-            android:text="500.000" />
+            android:textSize="@dimen/font_size_14dp"
+            app:elevation="3dp" />
 
     </RelativeLayout>
 
@@ -59,33 +72,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
+        <Button
+            android:id="@+id/btn_order"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_total_price"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/font_size_12dp"
-                android:textAlignment="center"
-                android:textColor="@color/color_white"
-                android:text="0 Item |  0.000 ( Total belanja )" />
-
-            <Button
-                android:id="@+id/btn_order"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/color_white"
-                android:background="@color/color_orange_dark"
-                android:textSize="15dp"
-                android:text="Pesan" />
-
-        </LinearLayout>
+            android:textColor="@color/color_white"
+            android:background="@color/color_orange_dark"
+            android:textSize="15dp"
+            android:text="Pesan" />
 
     </RelativeLayout>
 

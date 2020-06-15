@@ -9,7 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.autoresto.R;
+import com.autoresto.model.Menu;
 import com.autoresto.model.Trolley;
+import com.autoresto.session.TroliData;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -20,9 +22,9 @@ public class ListTrolleyAdapter extends RecyclerView.Adapter<ListTrolleyAdapter.
 
     private TrolleyActivity trolleyActivity;
 
-    private List<Trolley> trolleyList;
+    private List<TroliData> trolleyList;
 
-    public ListTrolleyAdapter(TrolleyActivity trolleyActivity, List<Trolley> trolleyList) {
+    public ListTrolleyAdapter(TrolleyActivity trolleyActivity, List<TroliData> trolleyList) {
         this.trolleyActivity = trolleyActivity;
         this.trolleyList = trolleyList;
     }
@@ -36,17 +38,18 @@ public class ListTrolleyAdapter extends RecyclerView.Adapter<ListTrolleyAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull final ListViewHolder holder, final int position) {
-        final Trolley trolley = trolleyList.get(position);
+        final TroliData trolley = trolleyList.get(position);
 
         Glide.with(holder.itemView.getContext())
-                .load(trolley.getPhoto())
+                .load(trolley.getMenu().getPhoto())
                 .apply(new RequestOptions().override(150, 205))
                 .into(holder.imgPhoto);
 
-        holder.tvName.setText(trolley.getName());
-        holder.tvPrice.setText(trolley.getPrice());
-        holder.tvQty.setText(String.valueOf(trolley.getQty()));
-        holder.tvCount.setText(String.valueOf(trolley.getQty()));
+        holder.tvName.setText(trolley.getMenu().getName());
+        holder.tvPrice.setText(String.valueOf(trolley.getMenu().getPrice()));
+        holder.tvQty.setText(String.valueOf(1));
+        holder.tvCount.setText(String.valueOf(1));
+        holder.tvPrice.setText(String.valueOf(trolleyList.get(position).getSub_total()));
 
         if (trolley.getNote() == "") {
             holder.tvNote.setText("Tambah catatan");
@@ -58,12 +61,13 @@ public class ListTrolleyAdapter extends RecyclerView.Adapter<ListTrolleyAdapter.
             @Override
             public void onClick(View v) {
                 trolleyList.get(position).setQty(trolleyList.get(position).getQty()+1);
-                int price = Integer.parseInt(trolleyList.get(position).getPrice());
+                float price = trolleyList.get(position).getMenu().getPrice();
                 int qty = trolleyList.get(position).getQty();
-                int total = qty*price;
-                trolleyList.get(position).setTotal(String.valueOf(total));
+                float total = qty*price;
+                trolleyList.get(position).setSub_total(total);
                 holder.tvCount.setText(String.valueOf(qty));
                 holder.tvQty.setText(String.valueOf(qty));
+                holder.tvPrice.setText(price + " ( "+ total +")");
             }
         });
 
@@ -73,12 +77,13 @@ public class ListTrolleyAdapter extends RecyclerView.Adapter<ListTrolleyAdapter.
                 if (trolley.getQty() > 1 ) {
                     trolleyList.get(position).setQty(trolleyList.get(position).getQty() - 1);
                 }
-                int price = Integer.parseInt(trolleyList.get(position).getPrice());
+                float price = trolleyList.get(position).getMenu().getPrice();
                 int qty = trolleyList.get(position).getQty();
-                int total = qty*price;
-                trolleyList.get(position).setTotal(String.valueOf(total));
+                float total = qty*price;
+                trolleyList.get(position).setSub_total(total);
                 holder.tvCount.setText(String.valueOf(qty));
                 holder.tvQty.setText(String.valueOf(qty));
+                holder.tvPrice.setText(price + " ( "+ total +")");
             }
         });
     }
@@ -107,8 +112,8 @@ public class ListTrolleyAdapter extends RecyclerView.Adapter<ListTrolleyAdapter.
         }
     }
 
-    public List<Trolley> getSelected() {
-        List<Trolley> selected = new ArrayList<>();
+    public List<TroliData> getSelected() {
+        List<TroliData> selected = new ArrayList<>();
         for (int i = 0; i < trolleyList.size(); i++) {
                 selected.add(trolleyList.get(i));
         }

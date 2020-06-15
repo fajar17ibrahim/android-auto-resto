@@ -1,5 +1,6 @@
 package com.autoresto.ui.menu.drink;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.autoresto.R;
+import com.autoresto.holder.TroliHolder;
 import com.autoresto.model.Menu;
+import com.autoresto.session.TroliData;
+import com.autoresto.session.TroliSession;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -91,6 +95,18 @@ public class ListDrinkAdapter extends RecyclerView.Adapter<ListDrinkAdapter.List
                     imgBgOrder.setVisibility(drink.isChecked() ? View.VISIBLE : View.GONE);
                     imgOrder.setVisibility(drink.isChecked() ? View.VISIBLE : View.GONE);
 
+                    TroliData data = new TroliData();
+                    data.setMenu(drink);
+                    data.setNote("");
+                    data.setQty(1);
+                    data.setSub_total(drink.getPrice());
+
+                    TroliSession troliSession = TroliSession.getInstance();
+//                    if (drink.isChecked()) {
+                        troliSession.addtroliData(data);
+//                    } else {
+//                        troliSession.removetroliData(drink);
+//                    }
                 }
             });
         }
