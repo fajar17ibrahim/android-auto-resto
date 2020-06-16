@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.autoresto.R;
 import com.autoresto.model.OrderDetail;
+import com.autoresto.model.OrderSendDetail;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -39,16 +40,26 @@ public class ListOrderDetailAdapter extends RecyclerView.Adapter<ListOrderDetail
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
             OrderDetail orderDetail = orderDetailList.get(position);
 
-//            Glide.with(holder.itemView.getContext())
-//            .load(orderDetail.getPhoto())
-//            .apply(new RequestOptions().override(150, 205))
-//            .into(holder.imgPhoto);
+            if ( orderDetail.getMenu().getPhoto() == null) {
+                holder.imgPhoto.setImageResource(R.drawable.ic_menu);
+            } else {
 
-           // holder.tvName.setText(orderDetail.getName());
-            holder.tvNote.setText(orderDetail.getNote());
-           // holder.tvPrice.setText(orderDetail.getPrice());
-            holder.tvQty.setText(orderDetail.getQty());
-          //  holder.tvTotal.setText("Rp "+orderDetail.getTotal());
+                Glide.with(holder.itemView.getContext())
+                        .load(orderDetail.getMenu().getPhoto())
+                        .apply(new RequestOptions().override(150, 205))
+                        .into(holder.imgPhoto);
+            }
+
+            holder.tvName.setText(orderDetail.getMenu().getName());
+
+            if (orderDetail.getNote() == "") {
+                holder.tvNote.setText("Tidak ada catatan");
+            } else {
+                holder.tvNote.setText(orderDetail.getNote());
+            }
+//            holder.tvDescription.setText(orderDetail.getMenu().getDescription());
+            holder.tvQty.setText(orderDetail.getQty() + " x "+ orderDetail.getMenu().getPrice());
+            holder.tvTotal.setText("Rp "+orderDetail.getSubtotal() + ",-");
 
             }
 
@@ -59,7 +70,7 @@ public class ListOrderDetailAdapter extends RecyclerView.Adapter<ListOrderDetail
 
     public class ListViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvName, tvNote, tvPrice, tvQty, tvTotal;
+        TextView tvName, tvNote, tvDescription, tvQty, tvTotal;
         ImageView imgPhoto;
 
         public ListViewHolder(@NonNull View itemView) {
@@ -67,8 +78,7 @@ public class ListOrderDetailAdapter extends RecyclerView.Adapter<ListOrderDetail
 
             tvName = (TextView) itemView.findViewById(R.id.tv_name);
             tvNote = (TextView) itemView.findViewById(R.id.tv_note);
-            tvPrice = (TextView) itemView.findViewById(R.id.tv_price);
-            tvQty = (TextView) itemView.findViewById(R.id.tv_qty);
+            tvQty = (TextView) itemView.findViewById(R.id.tv_description);
             tvTotal = (TextView) itemView.findViewById(R.id.tv_total_price);
             imgPhoto = (ImageView) itemView.findViewById(R.id.img_menu);
 

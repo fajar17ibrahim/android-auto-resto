@@ -48,6 +48,10 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
+        sharedPreferences = getSharedPreferences(Constans.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        token = sharedPreferences.getString(Constans.TAG_TOKEN, "token");
+        Log.d("Token ", token);
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Riwayat Pesanan");
@@ -63,18 +67,14 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
 
         recyclerView = (RecyclerView) findViewById(R.id.rv_history);
 
-        sharedPreferences = getSharedPreferences(Constans.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        token = sharedPreferences.getString(Constans.TAG_TOKEN, "token");
-        Log.d("Token ", token);
-
         progressBar = (ProgressBar) findViewById(R.id.pb_loading);
 
         tvNoData = (TextView) findViewById(R.id.tv_no_data);
 
+       showRecyclerView();
+
         historyPresenter = new HistoryPresenter(this);
         historyPresenter.requestDataFromServer(token);
-
-        showRecyclerView();
     }
 
     private void showRecyclerView() {
@@ -106,6 +106,7 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
     @Override
     public void setDataToViews(List<Order> orderList) {
         list.addAll(orderList);
+        listHistoryAdapter.notifyDataSetChanged();
     }
 
     @Override

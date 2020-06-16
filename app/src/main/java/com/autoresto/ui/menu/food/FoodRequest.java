@@ -24,7 +24,7 @@ public class FoodRequest implements FoodContract.Model {
             @Override
             public void onResponse(Call<List<Menu>> call, Response<List<Menu>> response) {
                 List<Menu> menu = response.body();
-                Log.d("Response Body ", response.toString());
+                Log.d("Response Body ", menu.toString());
                 onFinishedListener.onFinished(menu);
             }
 

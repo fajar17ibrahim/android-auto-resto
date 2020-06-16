@@ -19,7 +19,7 @@ public class OrderRequest implements OrderContract.Model {
 
         ApiInterface apiService = ApiClient.getClient(ApiUtils.BASE_URL_API).create(ApiInterface.class);
 
-        Call<List<Order>> call = apiService.getOrders("bearer " + token);
+        Call<List<Order>> call = apiService.getOrders("Bearer " + token);
         call.enqueue(new Callback<List<Order>>() {
             @Override
             public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {

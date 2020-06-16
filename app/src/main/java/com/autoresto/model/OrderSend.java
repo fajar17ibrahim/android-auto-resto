@@ -10,7 +10,7 @@ public class OrderSend {
     private int table_id;
 
     @SerializedName("order_details")
-    private List<OrderDetail> order_details;
+    private List<OrderSendDetail> order_details;
 
     public int getTable_id() {
         return table_id;
@@ -20,15 +20,15 @@ public class OrderSend {
         this.table_id = table_id;
     }
 
-    public List<OrderDetail> getOrder_details() {
+    public List<OrderSendDetail> getOrder_details() {
         return order_details;
     }
 
-    public void setOrder_details(List<OrderDetail> order_details) {
+    public void setOrder_details(List<OrderSendDetail> order_details) {
         this.order_details = order_details;
     }
 
-    public OrderSend(int table_id, List<OrderDetail> order_details) {
+    public OrderSend(int table_id, List<OrderSendDetail> order_details) {
         this.table_id = table_id;
         this.order_details = order_details;
     }

@@ -36,14 +36,14 @@
                 android:ellipsize="end"
                 android:textSize="@dimen/font_size_14dp"
                 android:textStyle="bold"
-                tools:text="@string/title_order" />
+                android:text="@string/title_order" />
 
             <TextView
                 android:id="@+id/tv_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/font_size_12dp"
-                tools:text="@string/status_order_1" />
+                android:text="@string/status_order_1" />
 
             <TextView
                 android:id="@+id/tv_created_at"
@@ -53,7 +53,7 @@
                 android:ellipsize="end"
                 android:textSize="@dimen/font_size_12dp"
                 android:maxLines="1"
-                tools:text="@string/time_order" />
+                android:text="@string/time_order" />
 
         </LinearLayout>
 

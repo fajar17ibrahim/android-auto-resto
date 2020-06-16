@@ -48,7 +48,9 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListVi
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
         Menu food = foodList.get(position);
 
-        if(food.getPhoto() != null ) {
+        if(food.getPhoto() == null ) {
+            holder.imgPhoto.setImageResource(R.drawable.ic_menu);
+        } else {
             Glide.with(holder.itemView.getContext())
                     .load(food.getPhoto())
                     .apply(new RequestOptions().override(150, 205))
@@ -57,7 +59,7 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListVi
 
         holder.tvName.setText(food.getName());
         holder.tvDescription.setText(food.getDescription());
-        holder.tvPrice.setText(String.valueOf("Rp " + food.getPrice()));
+        holder.tvPrice.setText(String.valueOf("Rp. " + food.getPrice() + ",-"));
 
         holder.bind(foodList.get(position));
 
@@ -70,7 +72,7 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListVi
 
     public class ListViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvName, tvPrice, tvDescription;
+        TextView tvName, tvPrice, tvDescription, tvStok;
         ImageView imgPhoto, imgBgOrder, imgOrder;
 
         public ListViewHolder(@NonNull View itemView) {
@@ -78,6 +80,7 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListVi
 
             tvName = itemView.findViewById(R.id.tv_food);
             tvPrice = itemView.findViewById(R.id.tv_price);
+            tvStok = itemView.findViewById(R.id.tv_stok);
             tvDescription = itemView.findViewById(R.id.tv_description);
             imgPhoto = itemView.findViewById(R.id.img_item_food);
             imgBgOrder = itemView.findViewById(R.id.bg_select_menu);
@@ -86,32 +89,39 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListVi
         }
 
         void bind(final Menu food) {
-            imgBgOrder.setVisibility(food.isChecked() ? View.VISIBLE : View.GONE);
-            imgOrder.setVisibility(food.isChecked() ? View.VISIBLE : View.GONE);
+            tvStok.setVisibility(View.GONE);
+            imgBgOrder.setVisibility(View.GONE);
+            imgOrder.setVisibility(View.GONE);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    food.setChecked(!food.isChecked());
-                    imgBgOrder.setVisibility(food.isChecked() ? View.VISIBLE : View.GONE);
-                    imgOrder.setVisibility(food.isChecked() ? View.VISIBLE : View.GONE);
+            if(food.getStok() < 0) {
+                imgBgOrder.setVisibility(View.VISIBLE);
+                imgOrder.setVisibility(View.GONE);
+                tvStok.setVisibility(View.VISIBLE);
+            } else {
+                tvStok.setVisibility(View.GONE);
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        food.setChecked(!food.isChecked());
+                        imgBgOrder.setVisibility(food.isChecked() ? View.VISIBLE : View.GONE);
+                        imgOrder.setVisibility(food.isChecked() ? View.VISIBLE : View.GONE);
 
-                    TroliData data = new TroliData();
-                    data.setMenu(food);
-                    data.setQty(1);
-                    data.setNote("");
-                    data.setSub_total(food.getPrice());
+                        TroliData data = new TroliData();
+                        data.setMenu(food);
+                        data.setQty(1);
+                        data.setNote("");
+                        data.setSub_total(food.getPrice());
 
-                    TroliSession troliSession = TroliSession.getInstance();
+                        TroliSession troliSession = TroliSession.getInstance();
 
-                    if(food.isChecked()) {
-                        troliSession.addtroliData(data);
-                    } else {
-                        troliSession.removetroliData(data);
+                        if (food.isChecked()) {
+                            troliSession.addtroliData(data);
+                        } else {
+                            troliSession.removetroliData(data);
+                        }
                     }
-
-                }
-            });
+                });
+            }
         }
     }
 

@@ -1,15 +1,20 @@
 package com.autoresto.ui.trolley;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -22,10 +27,12 @@ import android.widget.Toast;
 import com.autoresto.R;
 import com.autoresto.model.OrderDetail;
 import com.autoresto.model.OrderSend;
+import com.autoresto.model.OrderSendDetail;
 import com.autoresto.model.Trolley;
 import com.autoresto.model.User;
 import com.autoresto.network.ApiClient;
 import com.autoresto.network.ApiInterface;
+import com.autoresto.session.TroliData;
 import com.autoresto.session.TroliSession;
 import com.autoresto.ui.account.AccountContract;
 import com.autoresto.ui.account.AccountPresenter;
@@ -132,46 +139,51 @@ public class TrolleyActivity extends AppCompatActivity implements AccountContrac
         TroliSession troliSession = TroliSession.getInstance();
         troliSession.getTroliDataList();
 
-//        trolleyList.add(troliSession.getTroliDataList());
-
         listTrolleyAdapter = new ListTrolleyAdapter(this, troliSession.getTroliDataList());
         mLayoutManager  = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(listTrolleyAdapter);
 
+        listTrolleyAdapter.setOnItemClickCallback(new OnItemClickCallback() {
+            @Override
+            public void onItemClick(TroliData troliData) {
+            }
+        });
+
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (listTrolleyAdapter.getSelected().size() > 0) {
-                    int qty1 = 0;
-                    float price1 = 0;
+            if (listTrolleyAdapter.getSelected().size() > 0) {
+                int qty1 = 0;
+                float price1 = 0;
 
-                    List<OrderDetail> orderDetails = new ArrayList<>();
+                List<OrderSendDetail> orderDetails = new ArrayList<>();
 
-                    for (int i = 0; i < listTrolleyAdapter.getSelected().size(); i++) {
+                for (int i = 0; i < listTrolleyAdapter.getSelected().size(); i++) {
 
-                        int id = listTrolleyAdapter.getSelected().get(i).getMenu().getId();
-                        int qty = listTrolleyAdapter.getSelected().get(i).getQty();
-                        String note = listTrolleyAdapter.getSelected().get(i).getNote();
-                        float price = listTrolleyAdapter.getSelected().get(i).getSub_total();
-                        qty1 = qty + qty1;
-                        price1 = price1 + price;
+                    int id = listTrolleyAdapter.getSelected().get(i).getMenu().getId();
+                    int qty = listTrolleyAdapter.getSelected().get(i).getQty();
+                    String note = listTrolleyAdapter.getSelected().get(i).getNote();
+                    float price = listTrolleyAdapter.getSelected().get(i).getSub_total();
+                    qty1 = qty + qty1;
+                    price1 = price1 + price;
 
-                        OrderDetail orderDetail = new OrderDetail(id, note, qty1);
-                        orderDetail.setId(id);
-                        orderDetail.setNote(note);
-                        orderDetail.setQty(qty1);
-                        orderDetails.add(orderDetail);
-                    }
-
-                    OrderSend orderSend = new OrderSend(1, orderDetails);
-
-                    loading = ProgressDialog.show(mContext, null, "Proses...", true, false);
-                    sendOrder(token, orderSend);
-
-                } else {
-                    tvTotalPrice.setText(" no item");
+                    OrderSendDetail orderSendDetail = new OrderSendDetail(id, note, qty1);
+                    orderSendDetail.setMenu_id(id);
+                    orderSendDetail.setNote(note);
+                    orderSendDetail.setQty(qty1);
+                    orderDetails.add(orderSendDetail);
                 }
+
+                OrderSend orderSend = new OrderSend(1, orderDetails);
+
+                loading = ProgressDialog.show(mContext, null, "Proses...", true, false);
+                sendOrder(token, orderSend);
+
+            } else {
+                tvTotalPrice.setText(" no item");
+            }
+
             }
         });
     }

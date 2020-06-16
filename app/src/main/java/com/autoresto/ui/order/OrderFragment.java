@@ -78,7 +78,9 @@ public class OrderFragment extends Fragment implements OrderContract.View, ShowE
             @Override
             public void onItemClicked(Order order) {
                 Intent iOrderDetail = new Intent(getActivity(), OrderDetailActivity.class);
-                iOrderDetail.putExtra(Constans.TAG_ORDER_ID, order.getId());
+                Bundle bundle = new Bundle();
+                bundle.putInt(Constans.TAG_ORDER_ID, order.getId());
+                iOrderDetail.putExtras(bundle);
                 startActivity(iOrderDetail);
             }
         });
@@ -103,6 +105,7 @@ public class OrderFragment extends Fragment implements OrderContract.View, ShowE
     @Override
     public void setDataToViews(List<Order> orderList) {
         list.addAll(orderList);
+        listOrderAdapter.notifyDataSetChanged();
     }
 
     @Override

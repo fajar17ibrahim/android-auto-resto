@@ -1,10 +1,18 @@
 package com.autoresto.ui.trolley;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,9 +32,20 @@ public class ListTrolleyAdapter extends RecyclerView.Adapter<ListTrolleyAdapter.
 
     private List<TroliData> trolleyList;
 
+    private Context mContext;
+
+    private Dialog dialog;
+
+    private OnItemClickCallback onItemClickCallback;
+
     public ListTrolleyAdapter(TrolleyActivity trolleyActivity, List<TroliData> trolleyList) {
+        this.mContext = trolleyActivity;
         this.trolleyActivity = trolleyActivity;
         this.trolleyList = trolleyList;
+    }
+
+    public  void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback;
     }
 
     @NonNull
@@ -40,16 +59,18 @@ public class ListTrolleyAdapter extends RecyclerView.Adapter<ListTrolleyAdapter.
     public void onBindViewHolder(@NonNull final ListViewHolder holder, final int position) {
         final TroliData trolley = trolleyList.get(position);
 
-        Glide.with(holder.itemView.getContext())
-                .load(trolley.getMenu().getPhoto())
-                .apply(new RequestOptions().override(150, 205))
-                .into(holder.imgPhoto);
-
+        if (trolley.getMenu().getPhoto() == null) {
+            holder.imgPhoto.setImageResource(R.drawable.ic_menu);
+        } else {
+            Glide.with(holder.itemView.getContext())
+                    .load(trolley.getMenu().getPhoto())
+                    .apply(new RequestOptions().override(150, 205))
+                    .into(holder.imgPhoto);
+        }
         holder.tvName.setText(trolley.getMenu().getName());
-        holder.tvPrice.setText(String.valueOf(trolley.getMenu().getPrice()));
-        holder.tvQty.setText(String.valueOf(1));
+        holder.tvDescription.setText(trolley.getMenu().getDescription());
         holder.tvCount.setText(String.valueOf(1));
-        holder.tvPrice.setText(String.valueOf(trolleyList.get(position).getSub_total()));
+        holder.tvSubTotal.setText("Rp. "+ trolley.getSub_total() +",-");
 
         if (trolley.getNote() == "") {
             holder.tvNote.setText("Tambah catatan");
@@ -66,8 +87,7 @@ public class ListTrolleyAdapter extends RecyclerView.Adapter<ListTrolleyAdapter.
                 float total = qty*price;
                 trolleyList.get(position).setSub_total(total);
                 holder.tvCount.setText(String.valueOf(qty));
-                holder.tvQty.setText(String.valueOf(qty));
-                holder.tvPrice.setText(price + " ( "+ total +")");
+                holder.tvSubTotal.setText("Rp. "+ total +",-");
             }
         });
 
@@ -82,8 +102,29 @@ public class ListTrolleyAdapter extends RecyclerView.Adapter<ListTrolleyAdapter.
                 float total = qty*price;
                 trolleyList.get(position).setSub_total(total);
                 holder.tvCount.setText(String.valueOf(qty));
-                holder.tvQty.setText(String.valueOf(qty));
-                holder.tvPrice.setText(price + " ( "+ total +")");
+                holder.tvSubTotal.setText("Rp. "+ total +",-");
+            }
+        });
+
+        holder.tvNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickCallback.onItemClick(trolleyList.get(holder.getAdapterPosition()));
+
+                dialog = new Dialog(mContext);
+                dialog.setContentView(R.layout.dialog_note);
+                final EditText eNote = (EditText) dialog.findViewById(R.id.et_note);
+                Button btnAddNote = (Button) dialog.findViewById(R.id.btn_add_note);
+
+                btnAddNote.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        holder.tvNote.setText(eNote.getText());
+                        trolleyList.get(position).setNote(holder.tvNote.getText().toString());
+                        dialog.hide();
+                    }
+                });
+                dialog.show();
             }
         });
     }
@@ -95,7 +136,7 @@ public class ListTrolleyAdapter extends RecyclerView.Adapter<ListTrolleyAdapter.
 
     public class ListViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvName, tvNote, tvPrice, tvQty, tvPlus, tvMin, tvCount;
+        TextView tvName, tvNote, tvDescription, tvPlus, tvMin, tvCount, tvSubTotal;
         ImageView imgPhoto;
 
         public ListViewHolder(@NonNull View itemView) {
@@ -103,11 +144,11 @@ public class ListTrolleyAdapter extends RecyclerView.Adapter<ListTrolleyAdapter.
 
             tvName = (TextView) itemView.findViewById(R.id.tv_name);
             tvNote = (TextView) itemView.findViewById(R.id.tv_note);
-            tvPrice = (TextView) itemView.findViewById(R.id.tv_price);
-            tvQty = (TextView) itemView.findViewById(R.id.tv_qty);
+            tvDescription = (TextView) itemView.findViewById(R.id.tv_description);
             tvPlus = (TextView) itemView.findViewById(R.id.btn_add);
             tvMin = (TextView) itemView.findViewById(R.id.btn_min);
             tvCount = (TextView) itemView.findViewById(R.id.tv_count);
+            tvSubTotal = (TextView) itemView.findViewById(R.id.tv_sub_total);
             imgPhoto = (ImageView) itemView.findViewById(R.id.img_menu);
         }
     }
@@ -119,4 +160,5 @@ public class ListTrolleyAdapter extends RecyclerView.Adapter<ListTrolleyAdapter.
         }
         return selected;
     }
+
 }

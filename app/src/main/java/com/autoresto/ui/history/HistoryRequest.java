@@ -23,7 +23,7 @@ public class HistoryRequest implements HistoryContract.Model {
             @Override
             public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
                 List<Order> order = response.body();
-                Log.d("Response Body ", response.toString());
+                Log.d("Response Body ", order.toString());
                 onFinishedListener.onFinished(order);
             }
 

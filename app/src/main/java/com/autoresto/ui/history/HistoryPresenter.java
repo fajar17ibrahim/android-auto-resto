@@ -12,15 +12,16 @@ public class HistoryPresenter implements HistoryContract.Presenter, HistoryContr
 
     public HistoryPresenter(HistoryContract.View historyView) {
         this.historyView = historyView;
-        this.historyModel = new HistoryRequest();
+        historyModel = new HistoryRequest();
     }
 
     @Override
     public void onFinished(List<Order> orderList) {
+        historyView.setDataToViews(orderList);
         if( historyView != null ) {
             historyView.hideProgress();
         }
-        historyView.setDataToViews(orderList);
+
     }
 
     @Override

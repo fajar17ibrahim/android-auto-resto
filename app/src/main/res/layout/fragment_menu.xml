@@ -110,8 +110,7 @@
             android:textColor="@color/color_white"
             android:background="@color/color_orange_dark"
             android:textSize="14dp"
-            android:textAllCaps="false"
-            android:text="Lanjut Pembayaran" />
+            android:text="Tambah Ke Kranjang" />
 
     </RelativeLayout>
 

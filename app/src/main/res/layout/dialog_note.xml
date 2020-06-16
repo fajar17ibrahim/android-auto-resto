@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_gravity="center"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tambahkan Catatan"
+            android:textColor="@color/color_white"
+            android:padding="@dimen/font_size_14dp"
+            android:background="@color/colorPrimary"/>
+
+        <EditText
+            android:id="@+id/et_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_size_12dp"
+            android:layout_margin="@dimen/font_size_14dp"
+            android:hint="pedas, tambah es"/>
+
+        <Button
+            android:id="@+id/btn_add_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tambah"
+            android:background="@color/color_grey"
+            android:textSize="@dimen/font_size_14dp"
+            android:textAllCaps="false" />
+
+    </LinearLayout>
+
+</RelativeLayout>

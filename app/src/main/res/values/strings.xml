@@ -33,4 +33,6 @@
     <string name="title_note">No note</string>
     <string name="title_add_note">Tambah catatan</string>
     <string name="title_description">Description</string>
+    <string name="cancel">Batal</string>
+    <string name="add">Tambah</string>
 </resources>

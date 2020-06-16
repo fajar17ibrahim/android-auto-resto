@@ -10,7 +10,6 @@ public class OrderPresenter implements OrderContract.Presenter, OrderContract.Mo
 
     private OrderContract.View orderView;
 
-
     public OrderPresenter(OrderContract.View orderView) {
         this.orderView = orderView;
         this.orderModel = new OrderRequest();
@@ -18,10 +17,10 @@ public class OrderPresenter implements OrderContract.Presenter, OrderContract.Mo
 
     @Override
     public void onFinished(List<Order> orderList) {
+        orderView.setDataToViews(orderList);
         if( orderView != null ) {
             orderView.hideProgress();
         }
-        orderView.setDataToViews(orderList);
     }
 
     @Override

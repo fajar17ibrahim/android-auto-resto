@@ -21,6 +21,18 @@ public class Order {
     @SerializedName("payed")
     private boolean payed;
 
+    @SerializedName("accepted")
+    private boolean accepted;
+
+    @SerializedName("rejected")
+    private boolean rejected;
+
+    @SerializedName("finished")
+    private boolean finished;
+
+    @SerializedName("note")
+    private String note;
+
     @SerializedName("created_at")
     private String created_at;
 
@@ -29,9 +41,6 @@ public class Order {
 
     @SerializedName("table")
     private Table table;
-
-    @SerializedName("order_details")
-    private List<OrderDetail> orderDetailList;
 
     public int getId() {
         return id;
@@ -97,15 +106,7 @@ public class Order {
         this.table = table;
     }
 
-    public List<OrderDetail> getOrderDetailList() {
-        return orderDetailList;
-    }
-
-    public void setOrderDetailList(List<OrderDetail> orderDetailList) {
-        this.orderDetailList = orderDetailList;
-    }
-
-    public Order(int id, String qr_code, float total, String date, boolean payed, String created_at, User user, Table table, List<OrderDetail> orderDetailList) {
+    public Order(int id, String qr_code, float total, String date, boolean payed, String created_at, User user, Table table) {
         this.id = id;
         this.qr_code = qr_code;
         this.total = total;
@@ -114,6 +115,5 @@ public class Order {
         this.created_at = created_at;
         this.user = user;
         this.table = table;
-        this.orderDetailList = orderDetailList;
     }
 }

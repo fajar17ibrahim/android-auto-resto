@@ -67,7 +67,7 @@ public class SaldoFragment extends Fragment implements AccountContract.View {
 
     @Override
     public void setDataToViews(User user) {
-        tvBalance.setText("Rp " + user.getBalance());
+        tvBalance.setText("Rp " + user.getBalance() + ",-");
         tvVirtualAccount.setText(user.getVirtual_account());
     }
 

@@ -35,7 +35,7 @@ public class ListHistoryAdapter extends RecyclerView.Adapter<ListHistoryAdapter.
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
         Order order = orderList.get(position);
 
-        holder.tvOrderId.setText(order.getId());
+        holder.tvOrderId.setText(order.getQr_code());
         holder.tvStatus.setText("Order selesai");
         holder.tvCreatedAt.setText(order.getCreated_at());
 
