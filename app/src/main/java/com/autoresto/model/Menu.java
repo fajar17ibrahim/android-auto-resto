@@ -16,8 +16,8 @@ public class Menu {
     @SerializedName("price")
     private float price;
 
-    @SerializedName("stok")
-    private int stok;
+    @SerializedName("stock")
+    private int stock;
 
     @SerializedName("photo")
     private String photo;
@@ -56,12 +56,12 @@ public class Menu {
         this.price = price;
     }
 
-    public int getStok() {
-        return stok;
+    public int getStock() {
+        return stock;
     }
 
-    public void setStok(int stok) {
-        this.stok = stok;
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     public String getPhoto() {
@@ -80,12 +80,12 @@ public class Menu {
         this.checked = checked;
     }
 
-    public Menu(int id, String name, String description, float price, int stok, String photo, boolean checked) {
+    public Menu(int id, String name, String description, float price, int stock, String photo, boolean checked) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.stok = stok;
+        this.stock = stock;
         this.photo = photo;
         this.checked = checked;
     }

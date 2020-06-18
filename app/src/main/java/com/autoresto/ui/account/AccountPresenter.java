@@ -28,18 +28,20 @@ public class AccountPresenter implements AccountContract.Presenter, AccountContr
 
     @Override
     public void onFinished(User user) {
+        userView.setDataToViews(user);
         if( userView != null ) {
             userView.hideProgress();
         }
-        userView.setDataToViews(user);
+
     }
 
     @Override
     public void onFailure(Throwable t) {
+        userView.onResponseFailure(t);
         if( userView != null ) {
             userView.hideProgress();
         }
-        userView.onResponseFailure(t);
+
 
     }
 }

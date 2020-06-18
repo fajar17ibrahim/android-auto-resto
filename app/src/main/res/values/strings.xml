@@ -25,6 +25,7 @@
     <string name="title_edit_password">Edit Password</string>
     <string name="title_service">Layanan</string>
     <string name="title_call_center">Hubungi Kami</string>
+    <string name="call_center_description">Apabila anda punya\npertanyaan, keluhan dan saran.\nHubungi Kami</string>
     <string name="title_about">Tentang AutoResto</string>
     <string name="title_history">Riwayat Pesanan</string>
     <string name="status_order_1">Order selesai</string>
@@ -35,4 +36,10 @@
     <string name="title_description">Description</string>
     <string name="cancel">Batal</string>
     <string name="add">Tambah</string>
+    <string name="service_title">AutoResto Service</string>
+    <string name="service">1. Plated Service.\n2. Pesan dari Apliaksi.\n3. Waiters Robot.</string>
+    <string name="service_description">Auto resto menyediakan layanan pesan makanan melalui aplikasi yang disediakan di setiap meja.\n\nCustomer akan dengan mudah melakukan pemesanan melalui aplikasi dengan cara mendaftarkan akun ke Auto Resto.\n\nAuto resto menyediakan plated service dimana makanan akan disajikan diatas piring.\n\nSetelah itu robot pengantar (waiter) makanan akan mengantarkan pesanan ke setiap meja sesuai dengan nomor meja yang tercantum pada aplikasi.</string>
+    <string name="about_title">AutoResto</string>
+    <string name="about_description">Auto Resto meghadirkan sebuah restoran dengan tempat yang nyaman dan cocok untuk tempat nongkrong bersama teman, keluarga dan orang-orang tersayang.\n\nAuto Resto memanfaatkan teknologi digital dalam proses transaksi pemesanan makanan dengan menggunakan aplikasi.\n\nAnda akan dimanjakan dengan fasilitas pesan dari meja tanpa perlu antri ke kasir.\n\nCukup menggunakan aplikasi Auto Resto anda dapat memilih menu makanan dan minuman yang anda suka dengan sekali klik. Anda juga akan mendapatkan pelayanan dari waiters robot yang akan mengantarkan pesanan anda.\n\nRobot otomatis akan bergerak ke meja anda ketika pesanan anda siap untuk dihidangkan.\n\nAuto Resto merupakan restoran yang berhasil menarik banyak pelanggan tiap hari dengan fasilitas teknologinya.\n</string>
+    <string name="call_center">( 0335 ) 0219444</string>
 </resources>

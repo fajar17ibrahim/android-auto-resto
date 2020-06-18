@@ -2,6 +2,7 @@ package com.autoresto.network;
 
 
 import com.autoresto.model.ChangePassword;
+import com.autoresto.model.ChangeProfile;
 import com.autoresto.model.Menu;
 import com.autoresto.model.Order;
 import com.autoresto.model.OrderDetail;
@@ -18,6 +19,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -57,6 +59,9 @@ public interface ApiInterface {
 
     @POST("auth/change-password")
     Call<ChangePassword> sendPassword(@Header("Authorization") String bearer, @Body ChangePassword changePassword);
+
+    @PATCH("user/{user_id}")
+    Call<ChangeProfile> updateUser(@Header("Authorization") String bearer, @Body ChangeProfile changeProfile, @Path("user_id") int user_id);
 
 
 }

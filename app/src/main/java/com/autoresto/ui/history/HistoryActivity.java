@@ -17,13 +17,12 @@ import android.widget.Toast;
 
 import com.autoresto.R;
 import com.autoresto.model.Order;
-import com.autoresto.ui.order.ShowEmptyView;
 import com.autoresto.utils.Constans;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HistoryActivity extends AppCompatActivity implements HistoryContract.View, ShowEmptyView {
+public class HistoryActivity extends AppCompatActivity implements HistoryContract.View {
 
     private SharedPreferences sharedPreferences;
 
@@ -107,6 +106,12 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
     public void setDataToViews(List<Order> orderList) {
         list.addAll(orderList);
         listHistoryAdapter.notifyDataSetChanged();
+
+        if (listHistoryAdapter.getItemCount() < 1) {
+            showEmptyView();
+        } else {
+            hideEmptyView();
+        }
     }
 
     @Override
@@ -115,13 +120,11 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
         Toast.makeText(this, "Data gagal dimuat.", Toast.LENGTH_LONG).show();
     }
 
-    @Override
     public void showEmptyView() {
         recyclerView.setVisibility(View.GONE);
         tvNoData.setVisibility(View.VISIBLE);
     }
 
-    @Override
     public void hideEmptyView() {
         recyclerView.setVisibility(View.VISIBLE);
         tvNoData.setVisibility(View.GONE);

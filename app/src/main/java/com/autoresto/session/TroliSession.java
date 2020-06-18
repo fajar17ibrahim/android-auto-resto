@@ -27,8 +27,12 @@ public class TroliSession {
         this.troliDataList.add(troliData);
     }
 
-    public void removetroliData(TroliData troliData) {
-        this.troliDataList.remove(troliData);
+    public void removetroliData(TroliData troliData, int menu_id) {
+        for (int i=0; i <= this.troliDataList.size(); i++ ) {
+            if (troliData.getMenu().getId() == menu_id) {
+                this.troliDataList.remove(i);
+            }
+        }
     }
 
     public void removeAllList() {

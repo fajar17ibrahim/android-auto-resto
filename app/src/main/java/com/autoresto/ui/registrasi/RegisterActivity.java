@@ -113,12 +113,8 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if (response.code() == 201) {
                     try {
-                        JSONObject jsonRESULTS = new JSONObject(response.body().toString());
-                        String message = jsonRESULTS.getString("name");
                         Toast.makeText(mContext, "Register berhasil", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(mContext, LoginActivity.class));
-                        Register register = response.body();
-                        Log.d("Response Body ", register.toString());
 
                     } catch(Exception e){
                         e.printStackTrace();
@@ -128,8 +124,6 @@ public class RegisterActivity extends AppCompatActivity {
                         JSONObject jsonRESULTS = new JSONObject(response.body().toString());
                         String message = jsonRESULTS.getString("message");
                         Toast.makeText(mContext, message + response.code(), Toast.LENGTH_LONG).show();
-                        Register register = response.body();
-                        Log.d("Response Body ", register.toString());
                     } catch(Exception e){
                         e.printStackTrace();
                     }

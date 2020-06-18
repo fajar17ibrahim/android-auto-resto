@@ -44,7 +44,7 @@ public class ListTrolleyAdapter extends RecyclerView.Adapter<ListTrolleyAdapter.
         this.trolleyList = trolleyList;
     }
 
-    public  void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
+    public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback;
     }
 
@@ -69,7 +69,7 @@ public class ListTrolleyAdapter extends RecyclerView.Adapter<ListTrolleyAdapter.
         }
         holder.tvName.setText(trolley.getMenu().getName());
         holder.tvDescription.setText(trolley.getMenu().getDescription());
-        holder.tvCount.setText(String.valueOf(1));
+        holder.tvCount.setText(String.valueOf(trolley.getQty()));
         holder.tvSubTotal.setText("Rp. "+ trolley.getSub_total() +",-");
 
         if (trolley.getNote() == "") {
@@ -81,13 +81,21 @@ public class ListTrolleyAdapter extends RecyclerView.Adapter<ListTrolleyAdapter.
         holder.tvPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                trolleyList.get(position).setQty(trolleyList.get(position).getQty()+1);
-                float price = trolleyList.get(position).getMenu().getPrice();
                 int qty = trolleyList.get(position).getQty();
-                float total = qty*price;
-                trolleyList.get(position).setSub_total(total);
-                holder.tvCount.setText(String.valueOf(qty));
-                holder.tvSubTotal.setText("Rp. "+ total +",-");
+                if (qty <= trolleyList.get(position).getMenu().getStock()) {
+                    trolleyList.get(position).setQty(qty+1);
+                    float price = trolleyList.get(position).getMenu().getPrice();
+                    float total = qty*price;
+                    trolleyList.get(position).setSub_total(total);
+                    holder.tvCount.setText(String.valueOf(qty));
+                    holder.tvSubTotal.setText("Rp. "+ total +",-");
+                } else {
+                    new AlertDialog.Builder(mContext)
+                            .setTitle("Alert")
+                            .setMessage("Stok habis! Tersisa " + trolley.getMenu().getStock())
+                            .show();
+                }
+
             }
         });
 
@@ -114,6 +122,7 @@ public class ListTrolleyAdapter extends RecyclerView.Adapter<ListTrolleyAdapter.
                 dialog = new Dialog(mContext);
                 dialog.setContentView(R.layout.dialog_note);
                 final EditText eNote = (EditText) dialog.findViewById(R.id.et_note);
+                eNote.setHint(trolleyList.get(position).getMenu().getDescription());
                 Button btnAddNote = (Button) dialog.findViewById(R.id.btn_add_note);
 
                 btnAddNote.setOnClickListener(new View.OnClickListener() {
@@ -153,12 +162,8 @@ public class ListTrolleyAdapter extends RecyclerView.Adapter<ListTrolleyAdapter.
         }
     }
 
-    public List<TroliData> getSelected() {
-        List<TroliData> selected = new ArrayList<>();
-        for (int i = 0; i < trolleyList.size(); i++) {
-                selected.add(trolleyList.get(i));
-        }
-        return selected;
+    public List<TroliData> getAll() {
+        return trolleyList;
     }
 
 }

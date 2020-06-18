@@ -11,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.trolley.TrolleyActivity"></activity>
+        <activity android:name=".ui.callcenter.CallCenterActivity"></activity>
+        <activity android:name=".ui.about.AboutActivity" />
+        <activity android:name=".ui.service.ServiceActivity" />
+        <activity android:name=".ui.trolley.TrolleyActivity" />
         <activity android:name=".ui.orderdetail.OrderDetailActivity" />
         <activity android:name=".ui.editprofile.EditProfileActivity" />
         <activity android:name=".ui.editpassword.EditPasswordActivity" />

@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class OrderFragment extends Fragment implements OrderContract.View, ShowEmptyView {
+public class OrderFragment extends Fragment implements OrderContract.View {
 
     private SharedPreferences sharedPreferences;
 
@@ -84,6 +84,7 @@ public class OrderFragment extends Fragment implements OrderContract.View, ShowE
                 startActivity(iOrderDetail);
             }
         });
+
     }
 
     @Override
@@ -106,6 +107,12 @@ public class OrderFragment extends Fragment implements OrderContract.View, ShowE
     public void setDataToViews(List<Order> orderList) {
         list.addAll(orderList);
         listOrderAdapter.notifyDataSetChanged();
+
+        if (listOrderAdapter.getItemCount() > 0) {
+            hideEmptyView();
+        } else {
+            showEmptyView();
+        }
     }
 
     @Override
@@ -114,13 +121,12 @@ public class OrderFragment extends Fragment implements OrderContract.View, ShowE
         Toast.makeText(getActivity(), "Data gagal dimuat.", Toast.LENGTH_LONG).show();
     }
 
-    @Override
+
     public void showEmptyView() {
         recyclerView.setVisibility(View.GONE);
         tvNoData.setVisibility(View.VISIBLE);
         }
 
-    @Override
     public void hideEmptyView() {
         recyclerView.setVisibility(View.VISIBLE);
         tvNoData.setVisibility(View.GONE);

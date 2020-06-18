@@ -21,7 +21,6 @@ public class HistoryPresenter implements HistoryContract.Presenter, HistoryContr
         if( historyView != null ) {
             historyView.hideProgress();
         }
-
     }
 
     @Override

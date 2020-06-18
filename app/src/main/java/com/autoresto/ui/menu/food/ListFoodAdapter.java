@@ -1,5 +1,6 @@
 package com.autoresto.ui.menu.food;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.autoresto.session.TroliSession;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,7 +95,7 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListVi
             imgBgOrder.setVisibility(View.GONE);
             imgOrder.setVisibility(View.GONE);
 
-            if(food.getStok() < 0) {
+            if(food.getStock() <= 0) {
                 imgBgOrder.setVisibility(View.VISIBLE);
                 imgOrder.setVisibility(View.GONE);
                 tvStok.setVisibility(View.VISIBLE);
@@ -115,9 +117,11 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListVi
                         TroliSession troliSession = TroliSession.getInstance();
 
                         if (food.isChecked()) {
+                            Log.d("add data ", food.toString());
                             troliSession.addtroliData(data);
                         } else {
-                            troliSession.removetroliData(data);
+                            Log.d("remove data ", food.toString());
+                            troliSession.removetroliData(data, food.getId());
                         }
                     }
                 });

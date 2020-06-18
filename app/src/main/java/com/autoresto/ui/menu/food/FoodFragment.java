@@ -29,7 +29,7 @@ import java.util.List;
 
 import static java.lang.String.valueOf;
 
-public class FoodFragment extends Fragment implements FoodContract.View, ShowEmptyView {
+public class FoodFragment extends Fragment implements FoodContract.View {
 
     private SharedPreferences sharedPreferences;
 
@@ -117,6 +117,13 @@ public class FoodFragment extends Fragment implements FoodContract.View, ShowEmp
     @Override
     public void setDataToViews(List<Menu> menuList) {
         foodList.addAll(menuList);
+        listFoodAdapter.notifyDataSetChanged();
+
+        if (listFoodAdapter.getItemCount() > 0) {
+            hideEmptyView();
+        } else {
+            showRecyclerList();
+        }
     }
 
     @Override
@@ -125,13 +132,11 @@ public class FoodFragment extends Fragment implements FoodContract.View, ShowEmp
         Toast.makeText(getActivity(), "Data gagal dimuat.", Toast.LENGTH_LONG).show();
     }
 
-    @Override
     public void showEmptyView() {
         recyclerView.setVisibility(View.GONE);
         tvNoData.setVisibility(View.VISIBLE);
     }
 
-    @Override
     public void hideEmptyView() {
         recyclerView.setVisibility(View.VISIBLE);
         tvNoData.setVisibility(View.GONE);

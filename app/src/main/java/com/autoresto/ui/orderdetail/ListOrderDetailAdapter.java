@@ -23,54 +23,59 @@ public class ListOrderDetailAdapter extends RecyclerView.Adapter<ListOrderDetail
 
     private List<OrderDetail> orderDetailList;
 
+    public OnItemClickCallback onItemClickCallback;
+
     public ListOrderDetailAdapter(OrderDetailActivity orderDetailActivity, List<OrderDetail> orderDetailList) {
         this.orderDetailActivity = orderDetailActivity;
         this.orderDetailList = orderDetailList;
     }
 
+    public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback;
+    }
 
     @NonNull
     @Override
     public ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_order_detail, parent, false);
-            return new ListViewHolder(view);
-            }
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_order_detail, parent, false);
+        return new ListViewHolder(view);
+    }
 
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
-            OrderDetail orderDetail = orderDetailList.get(position);
+        OrderDetail orderDetail = orderDetailList.get(position);
 
-            if ( orderDetail.getMenu().getPhoto() == null) {
-                holder.imgPhoto.setImageResource(R.drawable.ic_menu);
-            } else {
+        if ( orderDetail.getMenu().getPhoto() == null) {
+            holder.imgPhoto.setImageResource(R.drawable.ic_menu);
+        } else {
 
-                Glide.with(holder.itemView.getContext())
-                        .load(orderDetail.getMenu().getPhoto())
-                        .apply(new RequestOptions().override(150, 205))
-                        .into(holder.imgPhoto);
-            }
+            Glide.with(holder.itemView.getContext())
+                    .load(orderDetail.getMenu().getPhoto())
+                    .apply(new RequestOptions().override(150, 205))
+                    .into(holder.imgPhoto);
+        }
 
-            holder.tvName.setText(orderDetail.getMenu().getName());
+        holder.tvName.setText(orderDetail.getMenu().getName());
 
-            if (orderDetail.getNote() == "") {
-                holder.tvNote.setText("Tidak ada catatan");
-            } else {
-                holder.tvNote.setText(orderDetail.getNote());
-            }
-//            holder.tvDescription.setText(orderDetail.getMenu().getDescription());
-            holder.tvQty.setText(orderDetail.getQty() + " x "+ orderDetail.getMenu().getPrice());
-            holder.tvTotal.setText("Rp "+orderDetail.getSubtotal() + ",-");
+        if (orderDetail.getNote() == "") {
+            holder.tvNote.setText("Tidak ada catatan");
+        } else {
+            holder.tvNote.setText(orderDetail.getNote());
+        }
 
-            }
+        holder.tvQty.setText(orderDetail.getQty() + " x "+ orderDetail.getMenu().getPrice());
+        holder.tvTotal.setText("Rp "+orderDetail.getSubtotal() + ",-");
+
+    }
 
     @Override
     public int getItemCount() {
-            return orderDetailList.size();
-            }
+        return orderDetailList.size();
+    }
 
     public class ListViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvName, tvNote, tvDescription, tvQty, tvTotal;
+        TextView tvName, tvNote, tvQty, tvTotal;
         ImageView imgPhoto;
 
         public ListViewHolder(@NonNull View itemView) {
@@ -83,5 +88,9 @@ public class ListOrderDetailAdapter extends RecyclerView.Adapter<ListOrderDetail
             imgPhoto = (ImageView) itemView.findViewById(R.id.img_menu);
 
         }
+    }
+
+    public List<OrderDetail> getAll() {
+        return orderDetailList;
     }
 }

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.autoresto.R;
 import com.autoresto.model.Menu;
@@ -36,6 +37,10 @@ public class OrderDetailActivity extends AppCompatActivity implements OrderDetai
     private ProgressBar progressBar;
 
     private ListOrderDetailAdapter listOrderDetailAdapter;
+
+    private TextView tvTotal;
+
+    private TextView tvNoData;
 
     private List<OrderDetail> list;
 
@@ -63,6 +68,10 @@ public class OrderDetailActivity extends AppCompatActivity implements OrderDetai
         Log.d("Order ID ", String.valueOf(orderId));
 
         recyclerView = (RecyclerView) findViewById(R.id.rv_order);
+
+        tvTotal = (TextView) findViewById(R.id.tv_total_price);
+
+        tvNoData = (TextView) findViewById(R.id.tv_no_data);
 
         progressBar = (ProgressBar) findViewById(R.id.pb_loading);
 
@@ -95,10 +104,38 @@ public class OrderDetailActivity extends AppCompatActivity implements OrderDetai
     public void showDataToViews(List<OrderDetail> orderDetailList) {
         list.addAll(orderDetailList);
         listOrderDetailAdapter.notifyDataSetChanged();
+
+        if (listOrderDetailAdapter.getItemCount() > 0) {
+            hideEmptyView();
+        } else {
+            showEmptyView();
+        }
+
+        int qty = 1, qty_tot = 0;
+        float sub_total, total = 0;
+
+        for ( int i = 0; i < listOrderDetailAdapter.getAll().size(); i++ ) {
+            qty = listOrderDetailAdapter.getAll().get(i).getQty();
+            qty_tot = qty_tot+qty;
+            sub_total = listOrderDetailAdapter.getAll().get(i).getSubtotal();
+            total = sub_total + total;
+
+        }
+        tvTotal.setText(qty_tot + " Item | Rp. " + total + ",- ( Total belanja ) ");
     }
 
     @Override
     public void onResponseFailure(Throwable throwable) {
         Log.d("Error Response ", throwable.toString());
+    }
+
+    public void showEmptyView() {
+        recyclerView.setVisibility(View.GONE);
+        tvNoData.setVisibility(View.VISIBLE);
+    }
+
+    public void hideEmptyView() {
+        recyclerView.setVisibility(View.VISIBLE);
+        tvNoData.setVisibility(View.GONE);
     }
 }

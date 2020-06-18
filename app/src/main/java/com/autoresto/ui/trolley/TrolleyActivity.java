@@ -11,6 +11,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.autoresto.MainActivity;
 import com.autoresto.R;
 import com.autoresto.model.OrderDetail;
 import com.autoresto.model.OrderSend;
@@ -136,7 +138,7 @@ public class TrolleyActivity extends AppCompatActivity implements AccountContrac
         String json = sharedPreferences.getString("Orderan", "");
         Log.d("orderan", json);
 
-        TroliSession troliSession = TroliSession.getInstance();
+        final TroliSession troliSession = TroliSession.getInstance();
         troliSession.getTroliDataList();
 
         listTrolleyAdapter = new ListTrolleyAdapter(this, troliSession.getTroliDataList());
@@ -150,63 +152,6 @@ public class TrolleyActivity extends AppCompatActivity implements AccountContrac
             }
         });
 
-        btnOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            if (listTrolleyAdapter.getSelected().size() > 0) {
-                int qty1 = 0;
-                float price1 = 0;
-
-                List<OrderSendDetail> orderDetails = new ArrayList<>();
-
-                for (int i = 0; i < listTrolleyAdapter.getSelected().size(); i++) {
-
-                    int id = listTrolleyAdapter.getSelected().get(i).getMenu().getId();
-                    int qty = listTrolleyAdapter.getSelected().get(i).getQty();
-                    String note = listTrolleyAdapter.getSelected().get(i).getNote();
-                    float price = listTrolleyAdapter.getSelected().get(i).getSub_total();
-                    qty1 = qty + qty1;
-                    price1 = price1 + price;
-
-                    OrderSendDetail orderSendDetail = new OrderSendDetail(id, note, qty1);
-                    orderSendDetail.setMenu_id(id);
-                    orderSendDetail.setNote(note);
-                    orderSendDetail.setQty(qty1);
-                    orderDetails.add(orderSendDetail);
-                }
-
-                OrderSend orderSend = new OrderSend(1, orderDetails);
-
-                loading = ProgressDialog.show(mContext, null, "Proses...", true, false);
-                sendOrder(token, orderSend);
-
-            } else {
-                tvTotalPrice.setText(" no item");
-            }
-
-            }
-        });
-    }
-
-    public void sendOrder(String token, OrderSend orderSend) {
-        ApiInterface apiService = ApiClient.getClient(ApiUtils.BASE_URL_API).create(ApiInterface.class);
-
-        Call<OrderSend> call = apiService.sendOrder("bearer " + token, orderSend);
-        call.enqueue(new Callback<OrderSend>() {
-            @Override
-            public void onResponse(Call<OrderSend> call, Response<OrderSend> response) {
-                loading.dismiss();
-                Toast.makeText(mContext, "Order Sukses", Toast.LENGTH_LONG).show();
-                OrderSend orderSendData = response.body();
-                Log.d("Response Body ", orderSendData.toString());
-            }
-
-            @Override
-            public void onFailure(Call<OrderSend> call, Throwable t) {
-                loading.dismiss();
-                Log.d("Error Response ", t.toString());
-            }
-        });
     }
 
     private void setListeners() {
@@ -239,12 +184,78 @@ public class TrolleyActivity extends AppCompatActivity implements AccountContrac
     }
 
     @Override
-    public void setDataToViews(User user) {
+    public void setDataToViews(final User user) {
         tvSaldo.setText("Rp. " + user.getBalance() + ",-");
+
+        btnOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listTrolleyAdapter.getAll().size() > 0) {
+                    int qty1 = 0;
+                    float price1 = 0;
+
+                    List<OrderSendDetail> orderDetails = new ArrayList<>();
+
+                    for (int i = 0; i < listTrolleyAdapter.getAll().size(); i++) {
+
+                        int id = listTrolleyAdapter.getAll().get(i).getMenu().getId();
+                        int qty = listTrolleyAdapter.getAll().get(i).getQty();
+                        String note = listTrolleyAdapter.getAll().get(i).getNote();
+                        float price = listTrolleyAdapter.getAll().get(i).getSub_total();
+                        qty1 = qty + qty1;
+                        price1 = price1 + price;
+
+                        OrderSendDetail orderSendDetail = new OrderSendDetail(id, note, qty1);
+                        orderSendDetail.setMenu_id(id);
+                        orderSendDetail.setNote(note);
+                        orderSendDetail.setQty(qty1);
+                        orderDetails.add(orderSendDetail);
+                    }
+
+                    OrderSend orderSend = new OrderSend(1, orderDetails);
+
+                    if (user.getBalance() <= price1) {
+                        new AlertDialog.Builder(TrolleyActivity.this)
+                                .setTitle("Alert")
+                                .setMessage("Saldo tidak cukup!")
+                                .show();
+                    } else {
+                        loading = ProgressDialog.show(mContext, null, "Proses...", true, false);
+                        sendOrder(token, orderSend);
+
+                        TroliSession troliSession = TroliSession.getInstance();
+                        troliSession.removeAllList();
+                    }
+                }
+            }
+        });
     }
 
     @Override
     public void onResponseFailure(Throwable throwable) {
         Log.d("Error Response ", throwable.toString());
+    }
+
+    public void sendOrder(String token, OrderSend orderSend) {
+        ApiInterface apiService = ApiClient.getClient(ApiUtils.BASE_URL_API).create(ApiInterface.class);
+
+        Call<OrderSend> call = apiService.sendOrder("bearer " + token, orderSend);
+        call.enqueue(new Callback<OrderSend>() {
+            @Override
+            public void onResponse(Call<OrderSend> call, Response<OrderSend> response) {
+                loading.dismiss();
+                Toast.makeText(mContext, "Order Sukses", Toast.LENGTH_LONG).show();
+                OrderSend orderSendData = response.body();
+                Log.d("Response Body ", orderSendData.toString());
+                Intent intent = new Intent(TrolleyActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(Call<OrderSend> call, Throwable t) {
+                loading.dismiss();
+                Log.d("Error Response ", t.toString());
+            }
+        });
     }
 }

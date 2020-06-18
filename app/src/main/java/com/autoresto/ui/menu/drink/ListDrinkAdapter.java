@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.autoresto.R;
-import com.autoresto.holder.TroliHolder;
 import com.autoresto.model.Menu;
 import com.autoresto.session.TroliData;
 import com.autoresto.session.TroliSession;
@@ -94,7 +93,7 @@ public class ListDrinkAdapter extends RecyclerView.Adapter<ListDrinkAdapter.List
             imgBgOrder.setVisibility(View.GONE);
             tvStok.setVisibility(View.GONE);
 
-            if (drink.getStok() < 0) {
+            if (drink.getStock() <= 0) {
                 imgBgOrder.setVisibility(View.VISIBLE);
                 tvStok.setVisibility(View.VISIBLE);
                 imgOrder.setVisibility(View.GONE);
@@ -104,28 +103,25 @@ public class ListDrinkAdapter extends RecyclerView.Adapter<ListDrinkAdapter.List
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                drink.setChecked(!drink.isChecked());
-                imgBgOrder.setVisibility(drink.isChecked() ? View.VISIBLE : View.GONE);
-                imgOrder.setVisibility(drink.isChecked() ? View.VISIBLE : View.GONE);
+                        drink.setChecked(!drink.isChecked());
+                        imgBgOrder.setVisibility(drink.isChecked() ? View.VISIBLE : View.GONE);
+                        imgOrder.setVisibility(drink.isChecked() ? View.VISIBLE : View.GONE);
 
-                TroliData data = new TroliData();
-                data.setMenu(drink);
-                data.setNote("");
-                data.setQty(1);
-                data.setSub_total(drink.getPrice());
+                        TroliData data = new TroliData();
+                        data.setMenu(drink);
+                        data.setNote("");
+                        data.setQty(1);
+                        data.setSub_total(drink.getPrice());
 
-                TroliSession troliSession = TroliSession.getInstance();
-//                    if (drink.isChecked()) {
-                troliSession.addtroliData(data);
-//                    } else {
-//                        troliSession.removetroliData(drink);
-//                    }
+                        TroliSession troliSession = TroliSession.getInstance();
+                        if (drink.isChecked()) {
+                            troliSession.addtroliData(data);
+                        } else {
+                            troliSession.removetroliData(data, drink.getId());
+                        }
                     }
                 });
             }
-
-
-
         }
     }
 

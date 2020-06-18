@@ -3,6 +3,7 @@ package com.autoresto.ui.order;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -42,7 +43,15 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.List
         Order order = orderList.get(position);
 
         holder.tvOrderId.setText(order.getQr_code());
-        holder.tvStatus.setText("Pesanan sedang diproses");
+        if (order.isAccepted()) {
+            holder.tvStatus.setText("Pesanan sedang diproses");
+        } else if (order.isRejected()) {
+            holder.tvStatus.setText("Pesanan dibatalkan");
+            holder.imgPhoto.setImageResource(R.drawable.ic_cancel_black_24dp);
+        } else if (order.isPayed()){
+            holder.tvStatus.setText("Sedang dipesan");
+        }
+
         holder.tvCreatedAt.setText(order.getCreated_at());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +71,7 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.List
     public class ListViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvOrderId, tvStatus, tvCreatedAt;
+        private ImageView imgPhoto;
 
         public ListViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,6 +79,7 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.List
             tvOrderId = itemView.findViewById(R.id.tv_order_id);
             tvStatus = itemView.findViewById(R.id.tv_status);
             tvCreatedAt = itemView.findViewById(R.id.tv_created_at);
+            imgPhoto = itemView.findViewById(R.id.img_photo);
         }
     }
 

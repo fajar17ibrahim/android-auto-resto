@@ -21,7 +21,6 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.autoresto.R;
-import com.autoresto.holder.TroliHolder;
 import com.autoresto.model.User;
 import com.autoresto.session.TroliSession;
 import com.autoresto.ui.account.AccountContract;
@@ -34,6 +33,7 @@ import com.autoresto.ui.trolley.TrolleyActivity;
 import com.autoresto.utils.Constans;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 public class MenuFragment extends Fragment implements View.OnClickListener, AccountContract.View {
@@ -51,7 +51,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener, Acco
 
     private ViewPager mViewPager;
 
-    private Button btnAddTrolley;
+    private FloatingActionButton btnAddTrolley;
 
     private AppBarLayout appBarLayout;
 
@@ -86,14 +86,14 @@ public class MenuFragment extends Fragment implements View.OnClickListener, Acco
         TabLayout tabLayout = (TabLayout) root.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        btnAddTrolley = (Button) root.findViewById(R.id.btn_add_trolley);
+        btnAddTrolley = (FloatingActionButton) root.findViewById(R.id.btn_add_trolley);
         btnAddTrolley.setOnClickListener(this);
 
         tvSaldo = (TextView) root.findViewById(R.id.tv_balance);
 
         collapsingToolbar = root.findViewById(R.id.collapsing_toolbar);
         toolbar = root.findViewById(R.id.toolbar);
-        collapsingToolbar.setTitle("Auto Resto");
+        collapsingToolbar.setTitle("Auto Resto (1)");
 
         appBarLayout = root.findViewById(R.id.appbar1);
         appBarLayout.setExpanded(true);
@@ -127,12 +127,12 @@ public class MenuFragment extends Fragment implements View.OnClickListener, Acco
                     scrollRange = appBarLayout.getTotalScrollRange();
                 }
                 if (scrollRange + verticalOffset == 0) {
-                    collapsingToolbar.setTitle("Menu");
-                    toolbar.setTitle("Menu");
+                    collapsingToolbar.setTitle("Menu (1)");
+                    toolbar.setTitle("Menu (1)");
                     isShow = true;
                 } else if (isShow) {
-                    collapsingToolbar.setTitle("Auto Resto");
-                    toolbar.setTitle("Auto Resto");
+                    collapsingToolbar.setTitle("Auto Resto (1)");
+                    toolbar.setTitle("Auto Resto (1)");
                     isShow = false;
                 }
             }

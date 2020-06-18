@@ -18,14 +18,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.autoresto.R;
-import com.autoresto.holder.TroliHolder;
 import com.autoresto.model.Menu;
 import com.autoresto.utils.Constans;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DrinkFragment extends Fragment implements DrinkContract.View, ShowEmptyView {
+public class DrinkFragment extends Fragment implements DrinkContract.View {
 
     private SharedPreferences sharedPreferences;
 
@@ -42,19 +41,6 @@ public class DrinkFragment extends Fragment implements DrinkContract.View, ShowE
     private ListDrinkAdapter listDrinkAdapter;
 
     private RecyclerView recyclerView;
-    TroliHolder troliHolder;
-
-    public void onAttachToParentFragment(Fragment childfragment) {
-        try {
-
-            troliHolder = (TroliHolder) childfragment;
-        } catch (ClassCastException e) {
-            throw new IllegalStateException("Parent Frag e t must implement EmployeeDataHolder interface");
-        }
-
-    }
-
-
 
     @Nullable
     @Override
@@ -77,8 +63,6 @@ public class DrinkFragment extends Fragment implements DrinkContract.View, ShowE
         drinkPresenter.requestDataFromServer(token);
 
         showRecyclerList();
-
-//        onAttachToParentFragment(getParentFragment());
 
         return root;
     }
@@ -110,6 +94,13 @@ public class DrinkFragment extends Fragment implements DrinkContract.View, ShowE
     @Override
     public void setDataToViews(List<Menu> menuList) {
         drinkList.addAll(menuList);
+        listDrinkAdapter.notifyDataSetChanged();
+
+        if ( listDrinkAdapter.getItemCount() > 0 ) {
+            hideEmptyView();
+        } else {
+            showEmptyView();
+        }
     }
 
     @Override
@@ -118,13 +109,11 @@ public class DrinkFragment extends Fragment implements DrinkContract.View, ShowE
         Toast.makeText(getActivity(), "Data gagal dimuat.", Toast.LENGTH_LONG).show();
     }
 
-    @Override
     public void showEmptyView() {
         recyclerView.setVisibility(View.GONE);
         tvNoData.setVisibility(View.VISIBLE);
     }
 
-    @Override
     public void hideEmptyView() {
         recyclerView.setVisibility(View.VISIBLE);
         tvNoData.setVisibility(View.GONE);

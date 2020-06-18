@@ -56,12 +56,12 @@ public class LoginActivity extends AppCompatActivity {
 
         mContext = this;
 
-//        sharedPreferences = getSharedPreferences(Constans.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
-//        session = sharedPreferences.getBoolean(Constans.SESSION, false);
-//        if(session) {
-//            Intent intent = new Intent(this, MainActivity.class);
-//            startActivity(intent);
-//        }
+        sharedPreferences = getSharedPreferences(Constans.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        session = sharedPreferences.getBoolean(Constans.SESSION, false);
+        if(session) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
 
         initComponents();
 
@@ -133,11 +133,15 @@ public class LoginActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     } else if (response.code() == 401) {
+
                         try {
                             JSONObject jsonRESULTS = new JSONObject(response.body().string());
+                            // Jika login berhasil
+
+                            Log.d("Error Login", "emboh" + jsonRESULTS);
                             // Jika login gagal
-                            String message = jsonRESULTS.getString("message");
-                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+//                            String message = jsonRESULTS.getString("message");
+//                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -147,7 +151,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     Log.e("debug", "onFailure: ERROR > " + t.getMessage());
-                    Toast.makeText(mContext, "Koneksi Internet Bermasalah", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, t.getMessage(), Toast.LENGTH_SHORT).show();
                     loading.dismiss();
                 }
             });
