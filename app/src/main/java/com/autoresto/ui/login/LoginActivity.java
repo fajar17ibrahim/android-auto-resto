@@ -115,7 +115,6 @@ public class LoginActivity extends AppCompatActivity {
                     if (response.code() == 200){
                         try {
                             JSONObject jsonRESULTS = new JSONObject(response.body().string());
-                            // Jika login berhasil
                             String id = jsonRESULTS.getString("id");
                             String token = jsonRESULTS.getString("access_token");
                             String name = jsonRESULTS.getString("name");
@@ -133,15 +132,10 @@ public class LoginActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     } else if (response.code() == 401) {
-
                         try {
                             JSONObject jsonRESULTS = new JSONObject(response.body().string());
-                            // Jika login berhasil
-
-                            Log.d("Error Login", "emboh" + jsonRESULTS);
-                            // Jika login gagal
-//                            String message = jsonRESULTS.getString("message");
-//                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+                            String message = jsonRESULTS.getString("message");
+                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

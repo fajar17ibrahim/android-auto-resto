@@ -69,7 +69,7 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="20dp"
                     android:textSize="14dp"
-                    android:hint="Jenis Kelamin ( Ex. L/P )"
+                    android:hint="Jenis Kelamin ( Ex. Laki-Laki / Perempuan )"
                     android:textColorHint="@color/colorPrimary"
                     android:inputType="text"
                     android:singleLine="true" />
@@ -86,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="20dp"
                     android:textSize="14dp"
-                    android:hint="Tanggal Lahir ( Ex.1998-01-19 )"
+                    android:hint="Tanggal Lahir ( Ex.1998-1-19 )"
                     android:inputType="text"
                     android:textColorHint="@color/colorPrimary"
                     android:drawablePadding="8dp"

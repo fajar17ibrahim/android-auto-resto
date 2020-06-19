@@ -60,19 +60,32 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/jk_text_input_layout"
+            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/txt_gender"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="20dp"
-                android:textSize="14dp"
-                android:hint="Jenis Kelamin ( Ex. L/P )"
-                android:textColorHint="@color/colorPrimary"
-                android:inputType="text"
-                android:singleLine="true" />
+            <RadioGroup
+                android:id="@+id/rg_gender"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/rb_male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Laki-Laki"
+                    android:checked="true"/>
+
+                <RadioButton
+                    android:id="@+id/rb_female"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Perempuan" />
+
+            </RadioGroup>
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -86,8 +99,8 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
                 android:textSize="14dp"
-                android:hint="Tanggal Lahir ( Ex.1998-01-19 )"
-                android:inputType="text"
+                android:hint="Tanggal Lahir ( Ex.1998-1-19 )"
+                android:inputType="none"
                 android:textColorHint="@color/colorPrimary"
                 android:drawablePadding="8dp"
                 android:singleLine="true" />

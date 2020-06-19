@@ -82,6 +82,8 @@ public class TrolleyActivity extends AppCompatActivity implements AccountContrac
 
     private ProgressBar pbLoading;
 
+    private int tableId;
+
     //private List<Trolley> trolleys;
 
     @Override
@@ -92,6 +94,7 @@ public class TrolleyActivity extends AppCompatActivity implements AccountContrac
 
         sharedPreferences = getSharedPreferences(Constans.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
         token = sharedPreferences.getString(Constans.TAG_TOKEN, "token");
+        tableId = Integer.parseInt(sharedPreferences.getString(Constans.TAG_TABLE_ID, null));
         Log.d("Token ", token);
 
         pbLoading = (ProgressBar) findViewById(R.id.pb_loading);
@@ -230,7 +233,7 @@ public class TrolleyActivity extends AppCompatActivity implements AccountContrac
                         orderDetails.add(orderSendDetail);
                     }
 
-                    OrderSend orderSend = new OrderSend(1, orderDetails);
+                    OrderSend orderSend = new OrderSend(tableId, orderDetails);
 
                     if (user.getBalance() <= price1) {
                         new AlertDialog.Builder(TrolleyActivity.this)

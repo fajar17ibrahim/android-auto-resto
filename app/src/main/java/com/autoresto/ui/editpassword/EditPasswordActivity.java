@@ -105,12 +105,9 @@ public class EditPasswordActivity extends AppCompatActivity {
 
                 if (response.code() == 201) {
                     try {
-                        JSONObject jsonRESULTS = new JSONObject(response.body().toString());
-                        String message = jsonRESULTS.getString("name");
-                        Toast.makeText(mContext, "Password anda berhasil diganti.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, "Password berhasil diganti.", Toast.LENGTH_LONG).show();
                         ChangePassword changePassword = response.body();
                         Log.d("Response Body ", changePassword.toString());
-
                     } catch(Exception e){
                         e.printStackTrace();
                     }

@@ -1,5 +1,6 @@
 package com.autoresto.ui.editprofile;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -26,11 +28,13 @@ import com.autoresto.utils.Constans;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EditProfileActivity extends AppCompatActivity implements AccountContract.View {
+public class EditProfileActivity extends AppCompatActivity implements AccountContract.View, View.OnClickListener {
 
     private SharedPreferences sharedPreferences;
 
@@ -41,6 +45,8 @@ public class EditProfileActivity extends AppCompatActivity implements AccountCon
     private int userId;
 
     private EditText eName, eUsername, eEmail, ePhone, eGender, eBirthday;
+
+    private int mYear, mMonth, mDay;
 
     private Button btnSave;
 
@@ -84,6 +90,8 @@ public class EditProfileActivity extends AppCompatActivity implements AccountCon
         eGender = (EditText) findViewById(R.id.txt_gender);
         eBirthday = (EditText) findViewById(R.id.txt_birthdate);
         btnSave = (Button) findViewById(R.id.btn_save);
+
+        eBirthday.setOnClickListener(this);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,5 +176,23 @@ public class EditProfileActivity extends AppCompatActivity implements AccountCon
     @Override
     public void onResponseFailure(Throwable throwable) {
         Log.d("Error Response ", throwable.toString());
+    }
+
+    @Override
+    public void onClick(View v) {
+        if ( v == eBirthday ) {
+            final Calendar calendar = Calendar.getInstance();
+            mYear = calendar.get(Calendar.YEAR);
+            mMonth = calendar.get(Calendar.MONTH);
+            mDay = calendar.get(Calendar.DATE);
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    eBirthday.setText(year + "-"+ month +"-"+ dayOfMonth);
+                }
+            }, mYear, mMonth, mDay);
+            datePickerDialog.show();
+        }
     }
 }

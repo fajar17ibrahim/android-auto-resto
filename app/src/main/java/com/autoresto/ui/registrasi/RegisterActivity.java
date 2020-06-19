@@ -1,13 +1,18 @@
 package com.autoresto.ui.registrasi;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,18 +27,23 @@ import com.autoresto.utils.ApiUtils;
 
 import org.json.JSONObject;
 
+import java.util.Calendar;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText eName, eUsername, eEmail, ePhone, eGender, eBirthday, ePassword, eConfPass;
+    private EditText eName, eUsername, eEmail, ePhone, eBirthday, ePassword, eConfPass;
+    private RadioGroup rgGender;
+    private RadioButton rbGender;
     private Button btnRegister;
     private ProgressDialog loading;
 
+    private int mYear, mMonth, mDay;
+
     private Context mContext;
-  //  ApiInterface mApiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +62,6 @@ public class RegisterActivity extends AppCompatActivity {
         });
         
         mContext = this;
-        //mApiService = ApiUtils.getAPIService();
 
         initComponents();
 
@@ -63,11 +72,17 @@ public class RegisterActivity extends AppCompatActivity {
         eUsername = (EditText) findViewById(R.id.txt_username);
         eEmail = (EditText) findViewById(R.id.txt_email);
         ePhone = (EditText) findViewById(R.id.txt_phone);
-        eGender = (EditText) findViewById(R.id.txt_gender);
+        rgGender = (RadioGroup) findViewById(R.id.rg_gender);
         eBirthday = (EditText) findViewById(R.id.txt_birthdate);
         ePassword = (EditText) findViewById(R.id.txt_pass);
         eConfPass = (EditText) findViewById(R.id.txt_confPass);
         btnRegister = (Button) findViewById(R.id.btn_register);
+
+        eBirthday.setOnClickListener(this);
+
+        int idRadioButtonGender = rgGender.getCheckedRadioButtonId();
+
+        rbGender = (RadioButton) findViewById(idRadioButtonGender);
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +91,6 @@ public class RegisterActivity extends AppCompatActivity {
                         eUsername.length() == 0 ||
                         eEmail.length() == 0 ||
                         ePhone.length() == 0 ||
-                        eGender.length() == 0 ||
                         eBirthday.length() == 0 ||
                         ePassword.length() == 0 ||
                         eConfPass.length() == 0 )  {
@@ -89,7 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
                             eEmail.getText().toString(),
                             ePassword.getText().toString(),
                             ePhone.getText().toString(),
-                            eGender.getText().toString(),
+                            rbGender.getText().toString(),
                             eBirthday.getText().toString());
                     sendRegister(register);
                 } else{
@@ -136,5 +150,23 @@ public class RegisterActivity extends AppCompatActivity {
                 Log.d("Error Response ", t.toString());
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        if ( v == eBirthday ) {
+            final Calendar calendar = Calendar.getInstance();
+            mYear = calendar.get(Calendar.YEAR);
+            mMonth = calendar.get(Calendar.MONTH);
+            mDay = calendar.get(Calendar.DATE);
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    eBirthday.setText(year + "-"+ month +"-"+ dayOfMonth);
+                }
+            }, mYear, mMonth, mDay);
+            datePickerDialog.show();
+        }
     }
 }

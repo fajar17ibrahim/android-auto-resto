@@ -84,8 +84,7 @@ public class SelectTableActivity extends AppCompatActivity implements SelectTabl
 
     public void getSelectedTable(View v) {
         Table table = (Table) sListTable.getSelectedItem();
-        Toast.makeText(mContex, table.getId() + " " + table.getName(), Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(mContex, "anda memilih " +table.getName(), Toast.LENGTH_SHORT).show();
 
         editor = sharedPreferences.edit();
         editor.putString(Constans.TAG_TABLE_ID, String.valueOf(table.getId()));
