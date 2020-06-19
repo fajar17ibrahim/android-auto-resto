@@ -4,12 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,13 +20,11 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.autoresto.R;
 import com.autoresto.model.User;
-import com.autoresto.session.TroliSession;
+import com.autoresto.ui.trolley.session.TroliSession;
 import com.autoresto.ui.account.AccountContract;
 import com.autoresto.ui.account.AccountPresenter;
 import com.autoresto.ui.menu.drink.DrinkFragment;
-import com.autoresto.ui.menu.drink.ListDrinkAdapter;
 import com.autoresto.ui.menu.food.FoodFragment;
-import com.autoresto.ui.menu.food.ListFoodAdapter;
 import com.autoresto.ui.trolley.TrolleyActivity;
 import com.autoresto.utils.Constans;
 import com.google.android.material.appbar.AppBarLayout;
@@ -61,6 +57,10 @@ public class MenuFragment extends Fragment implements View.OnClickListener, Acco
 
     private TextView tvSaldo;
 
+    private String table_name;
+
+    private TextView tvTable;
+
 
     @Nullable
     @Override
@@ -79,6 +79,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener, Acco
 
         sharedPreferences = getActivity().getSharedPreferences(Constans.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
         token = sharedPreferences.getString(Constans.TAG_TOKEN, "token");
+        table_name = sharedPreferences.getString(Constans.TAG_TABLE_NAME, "table name");
 
         NestedScrollView nestedScrollView = (NestedScrollView) root.findViewById(R.id.nsv_menu);
         nestedScrollView.setFillViewport(true);
@@ -91,9 +92,11 @@ public class MenuFragment extends Fragment implements View.OnClickListener, Acco
 
         tvSaldo = (TextView) root.findViewById(R.id.tv_balance);
 
+        tvTable = (TextView) root.findViewById(R.id.tv_table);
+
         collapsingToolbar = root.findViewById(R.id.collapsing_toolbar);
         toolbar = root.findViewById(R.id.toolbar);
-        collapsingToolbar.setTitle("Auto Resto (1)");
+        //collapsingToolbar.setTitle("Auto Resto ( "+ table_name+" )");
 
         appBarLayout = root.findViewById(R.id.appbar1);
         appBarLayout.setExpanded(true);
@@ -118,7 +121,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener, Acco
 
         // hiding & showing the title when toolbar expanded & collapsed
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            boolean isShow = false;
+            boolean isShow = true;
             int scrollRange = -1;
 
             @Override
@@ -127,12 +130,13 @@ public class MenuFragment extends Fragment implements View.OnClickListener, Acco
                     scrollRange = appBarLayout.getTotalScrollRange();
                 }
                 if (scrollRange + verticalOffset == 0) {
-                    collapsingToolbar.setTitle("Menu (1)");
-                    toolbar.setTitle("Menu (1)");
+                    collapsingToolbar.setTitle("Auto Resto ( "+ table_name+" )");
+                    tvTable.setVisibility(View.GONE);
                     isShow = true;
                 } else if (isShow) {
-                    collapsingToolbar.setTitle("Auto Resto (1)");
-                    toolbar.setTitle("Auto Resto (1)");
+                    collapsingToolbar.setTitle("Auto Resto");
+                    tvTable.setVisibility(View.VISIBLE);
+                    tvTable.setText("( "+ table_name +" )");
                     isShow = false;
                 }
             }

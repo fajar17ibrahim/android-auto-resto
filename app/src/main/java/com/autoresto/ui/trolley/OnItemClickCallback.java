@@ -1,6 +1,6 @@
 package com.autoresto.ui.trolley;
 
-import com.autoresto.session.TroliData;
+import com.autoresto.ui.trolley.session.TroliData;
 
 public interface OnItemClickCallback {
 

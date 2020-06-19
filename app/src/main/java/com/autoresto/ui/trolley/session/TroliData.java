@@ -1,4 +1,4 @@
-package com.autoresto.session;
+package com.autoresto.ui.trolley.session;
 
 import com.autoresto.model.Menu;
 

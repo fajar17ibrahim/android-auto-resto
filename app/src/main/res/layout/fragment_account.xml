@@ -246,6 +246,33 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/ll_table"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:background="@drawable/border_bottom"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/ic_tablet_android_black_24dp">
+                    </ImageView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textSize="@dimen/font_size_17dp"
+                        android:textStyle="bold"
+                        android:text="@string/title_table" />
+
+                </LinearLayout>
+
                 <Button
                     android:id="@+id/btn_log_out"
                     android:layout_width="match_parent"

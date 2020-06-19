@@ -6,4 +6,7 @@ public class Constans {
     public static final String TAG_USER_ID = "user_id";
     public static final String TAG_TOKEN = "token";
     public static final String SESSION = "session";
+    public static final String SESSION_TABLE = "session_table";
+    public static final String TAG_TABLE_ID = "table_id";
+    public static final String TAG_TABLE_NAME = "table_name";
 }

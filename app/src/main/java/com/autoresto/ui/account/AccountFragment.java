@@ -1,7 +1,6 @@
 package com.autoresto.ui.account;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,6 +22,8 @@ import androidx.fragment.app.Fragment;
 
 import com.autoresto.R;
 import com.autoresto.model.User;
+import com.autoresto.ui.selecttable.SelectTableActivity;
+import com.autoresto.ui.trolley.session.TroliSession;
 import com.autoresto.ui.about.AboutActivity;
 import com.autoresto.ui.callcenter.CallCenterActivity;
 import com.autoresto.ui.editpassword.EditPasswordActivity;
@@ -53,6 +54,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener, A
     private LinearLayout llService;
     private LinearLayout llCallCenter;
     private LinearLayout llAbout;
+    private LinearLayout llTable;
 
     private Button btnLogOut;
 
@@ -94,6 +96,9 @@ public class AccountFragment extends Fragment implements View.OnClickListener, A
         llAbout = (LinearLayout) root.findViewById(R.id.ll_about);
         llAbout.setOnClickListener(this);
 
+        llTable = (LinearLayout) root.findViewById(R.id.ll_table);
+        llTable.setOnClickListener(this);
+
         btnLogOut = (Button) root.findViewById(R.id.btn_log_out);
         btnLogOut.setOnClickListener(this);
 
@@ -134,6 +139,30 @@ public class AccountFragment extends Fragment implements View.OnClickListener, A
                 startActivity(iAbout);
                 break;
 
+            case R.id.ll_table:
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("Konfirmasi")
+                        .setMessage("Jika anda mengatur ulang meja, anda akan keluar dari akun anda. Reset sekarang ?")
+                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                sharedPreferences.edit().remove(Constans.TAG_USER_ID).commit();
+                                sharedPreferences.edit().remove(Constans.TAG_TOKEN).commit();
+                                sharedPreferences.edit().remove(Constans.SESSION).commit();
+                                sharedPreferences.edit().remove(Constans.MY_SHARED_PREFERENCES).commit();
+                                sharedPreferences.edit().remove(Constans.SESSION_TABLE).commit();
+                                sharedPreferences.edit().remove(Constans.TAG_TABLE_ID).commit();
+                                sharedPreferences.edit().remove(Constans.TAG_TABLE_ID).commit();
+                                TroliSession troliSession = TroliSession.getInstance();
+                                troliSession.removeAllList();
+                                Intent intent = new Intent(getActivity(), SelectTableActivity.class);
+                                startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("Tidak", null)
+                        .show();
+                break;
+
             case R.id.btn_log_out:
                 new AlertDialog.Builder(getActivity())
                         .setTitle("Konfirmasi")
@@ -145,6 +174,8 @@ public class AccountFragment extends Fragment implements View.OnClickListener, A
                                 sharedPreferences.edit().remove(Constans.TAG_TOKEN).commit();
                                 sharedPreferences.edit().remove(Constans.SESSION).commit();
                                 sharedPreferences.edit().remove(Constans.MY_SHARED_PREFERENCES).commit();
+                                TroliSession troliSession = TroliSession.getInstance();
+                                troliSession.removeAllList();
                                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                                 startActivity(intent);
                             }

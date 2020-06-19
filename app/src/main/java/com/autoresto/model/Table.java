@@ -1,5 +1,7 @@
 package com.autoresto.model;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 public class Table {
@@ -65,5 +67,11 @@ public class Table {
         this.ip_address = ip_address;
         this.description = description;
         this.choosen = choosen;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return name;
     }
 }

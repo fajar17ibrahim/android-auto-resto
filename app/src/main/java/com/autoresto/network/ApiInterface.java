@@ -8,6 +8,7 @@ import com.autoresto.model.Order;
 import com.autoresto.model.OrderDetail;
 import com.autoresto.model.OrderSend;
 import com.autoresto.model.Register;
+import com.autoresto.model.Table;
 import com.autoresto.model.User;
 
 import java.util.List;
@@ -30,6 +31,8 @@ public interface ApiInterface {
     Call<ResponseBody> loginRequest(@Field("username") String username,
                                     @Field("password") String password,
                                     @Field("role_id") int roleId);
+    @GET("table")
+    Call<List<Table>> getTable();
 
 
     @GET("auth/profile")

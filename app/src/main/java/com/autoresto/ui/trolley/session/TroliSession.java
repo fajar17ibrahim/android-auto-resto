@@ -1,6 +1,4 @@
-package com.autoresto.session;
-
-import com.autoresto.model.Menu;
+package com.autoresto.ui.trolley.session;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,13 +22,16 @@ public class TroliSession {
     }
 
     public void addtroliData(TroliData troliData) {
-        this.troliDataList.add(troliData);
+       this.troliDataList.add(troliData);
     }
 
-    public void removetroliData(TroliData troliData, int menu_id) {
-        for (int i=0; i <= this.troliDataList.size(); i++ ) {
-            if (troliData.getMenu().getId() == menu_id) {
-                this.troliDataList.remove(i);
+    public void removetroliData(int menu_id) {
+        if(this.troliDataList.size() > 0) {
+            for (int i = 0; i <= this.troliDataList.size(); i++) {
+                if (troliDataList.get(i).getMenu().getId() == menu_id) {
+                    this.troliDataList.remove(i);
+                    break;
+                }
             }
         }
     }

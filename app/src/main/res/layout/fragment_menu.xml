@@ -41,6 +41,15 @@
                     app:layout_collapseMode="parallax"
                     android:src="@drawable/background_restaurant" />
 
+                <TextView
+                    android:id="@+id/tv_table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Table Name"
+                    android:textSize="@dimen/font_size_17dp"
+                    android:layout_margin="@dimen/font_size_15dp"
+                    android:textColor="@color/color_white"/>
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="75dp"
                     android:layout_height="75dp"

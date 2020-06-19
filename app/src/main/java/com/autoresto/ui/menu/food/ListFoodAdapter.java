@@ -12,12 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.autoresto.R;
 import com.autoresto.model.Menu;
-import com.autoresto.session.TroliData;
-import com.autoresto.session.TroliSession;
+import com.autoresto.ui.trolley.session.TroliData;
+import com.autoresto.ui.trolley.session.TroliSession;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -121,26 +120,12 @@ public class ListFoodAdapter extends RecyclerView.Adapter<ListFoodAdapter.ListVi
                             troliSession.addtroliData(data);
                         } else {
                             Log.d("remove data ", food.toString());
-                            troliSession.removetroliData(data, food.getId());
+                            troliSession.removetroliData(food.getId());
                         }
                     }
                 });
             }
         }
     }
-
-        public List<Menu> getAll() {
-            return foodList;
-        }
-
-        public List<Menu> getSelected() {
-            List<Menu> selected = new ArrayList<>();
-            for (int i = 0; i < foodList.size(); i++) {
-                if (foodList.get(i).isChecked()) {
-                    selected.add(foodList.get(i));
-                }
-            }
-            return selected;
-        }
 
 }

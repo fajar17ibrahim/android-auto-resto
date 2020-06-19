@@ -3,8 +3,6 @@ package com.autoresto.ui.trolley;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,18 +10,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.autoresto.R;
-import com.autoresto.model.Menu;
-import com.autoresto.model.Trolley;
-import com.autoresto.session.TroliData;
+import com.autoresto.ui.trolley.session.TroliData;
+import com.autoresto.ui.trolley.session.TroliSession;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListTrolleyAdapter extends RecyclerView.Adapter<ListTrolleyAdapter.ListViewHolder> {
@@ -82,12 +77,12 @@ public class ListTrolleyAdapter extends RecyclerView.Adapter<ListTrolleyAdapter.
             @Override
             public void onClick(View v) {
                 int qty = trolleyList.get(position).getQty();
-                if (qty <= trolleyList.get(position).getMenu().getStock()) {
+                if (qty < trolleyList.get(position).getMenu().getStock()) {
                     trolleyList.get(position).setQty(qty+1);
                     float price = trolleyList.get(position).getMenu().getPrice();
-                    float total = qty*price;
+                    float total = trolleyList.get(position).getQty()*price;
                     trolleyList.get(position).setSub_total(total);
-                    holder.tvCount.setText(String.valueOf(qty));
+                    holder.tvCount.setText(String.valueOf(trolleyList.get(position).getQty()));
                     holder.tvSubTotal.setText("Rp. "+ total +",-");
                 } else {
                     new AlertDialog.Builder(mContext)
@@ -95,22 +90,26 @@ public class ListTrolleyAdapter extends RecyclerView.Adapter<ListTrolleyAdapter.
                             .setMessage("Stok habis! Tersisa " + trolley.getMenu().getStock())
                             .show();
                 }
-
             }
         });
 
         holder.tvMin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (trolley.getQty() > 1 ) {
+                if (trolleyList.get(position).getQty() > 1) {
                     trolleyList.get(position).setQty(trolleyList.get(position).getQty() - 1);
+                    float price = trolleyList.get(position).getMenu().getPrice();
+                    int qty = trolleyList.get(position).getQty();
+                    float total = qty * price;
+                    trolleyList.get(position).setSub_total(total);
+                    holder.tvCount.setText(String.valueOf(qty));
+                    holder.tvSubTotal.setText("Rp. " + total + ",-");
                 }
-                float price = trolleyList.get(position).getMenu().getPrice();
-                int qty = trolleyList.get(position).getQty();
-                float total = qty*price;
-                trolleyList.get(position).setSub_total(total);
-                holder.tvCount.setText(String.valueOf(qty));
-                holder.tvSubTotal.setText("Rp. "+ total +",-");
+                else {
+                    TroliSession troliSession = TroliSession.getInstance();
+                    troliSession.removetroliData(trolleyList.get(position).getMenu().getId());
+                    notifyDataSetChanged();
+                }
             }
         });
 

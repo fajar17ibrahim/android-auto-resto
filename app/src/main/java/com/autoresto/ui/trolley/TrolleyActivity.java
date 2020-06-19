@@ -1,21 +1,17 @@
 package com.autoresto.ui.trolley;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -27,15 +23,14 @@ import android.widget.Toast;
 
 import com.autoresto.MainActivity;
 import com.autoresto.R;
-import com.autoresto.model.OrderDetail;
 import com.autoresto.model.OrderSend;
 import com.autoresto.model.OrderSendDetail;
 import com.autoresto.model.Trolley;
 import com.autoresto.model.User;
 import com.autoresto.network.ApiClient;
 import com.autoresto.network.ApiInterface;
-import com.autoresto.session.TroliData;
-import com.autoresto.session.TroliSession;
+import com.autoresto.ui.trolley.session.TroliData;
+import com.autoresto.ui.trolley.session.TroliSession;
 import com.autoresto.ui.account.AccountContract;
 import com.autoresto.ui.account.AccountPresenter;
 import com.autoresto.utils.ApiUtils;
@@ -79,6 +74,8 @@ public class TrolleyActivity extends AppCompatActivity implements AccountContrac
 
     private ProgressDialog loading;
 
+    private TextView tvEmptyData;
+
     private Context mContext;
 
     private LinearLayoutManager mLayoutManager;
@@ -93,12 +90,13 @@ public class TrolleyActivity extends AppCompatActivity implements AccountContrac
         setContentView(R.layout.activity_trolley);
         mContext = this;
 
-
         sharedPreferences = getSharedPreferences(Constans.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
         token = sharedPreferences.getString(Constans.TAG_TOKEN, "token");
         Log.d("Token ", token);
 
         pbLoading = (ProgressBar) findViewById(R.id.pb_loading);
+
+        tvEmptyData = (TextView) findViewById(R.id.tv_no_data);
 
         tvTotalPrice = (TextView) findViewById(R.id.tv_total_price);
         tvSaldo = (TextView) findViewById(R.id.tv_saldo);
@@ -138,6 +136,7 @@ public class TrolleyActivity extends AppCompatActivity implements AccountContrac
         String json = sharedPreferences.getString("Orderan", "");
         Log.d("orderan", json);
 
+        showProgress();
         final TroliSession troliSession = TroliSession.getInstance();
         troliSession.getTroliDataList();
 
@@ -152,6 +151,25 @@ public class TrolleyActivity extends AppCompatActivity implements AccountContrac
             }
         });
 
+        if ( troliSession.getTroliDataList().size() > 0 ) {
+            hideEmptyView();
+        } else {
+            showEmptyView();
+        }
+
+    }
+
+    private void showEmptyView() {
+        hideProgress();
+        recyclerView.setVisibility(View.GONE);
+        tvEmptyData.setVisibility(View.VISIBLE);
+
+    }
+
+    private void hideEmptyView() {
+        hideProgress();
+        recyclerView.setVisibility(View.VISIBLE);
+        tvEmptyData.setVisibility(View.GONE);
     }
 
     private void setListeners() {
@@ -205,10 +223,10 @@ public class TrolleyActivity extends AppCompatActivity implements AccountContrac
                         qty1 = qty + qty1;
                         price1 = price1 + price;
 
-                        OrderSendDetail orderSendDetail = new OrderSendDetail(id, note, qty1);
+                        OrderSendDetail orderSendDetail = new OrderSendDetail(id, note, qty);
                         orderSendDetail.setMenu_id(id);
                         orderSendDetail.setNote(note);
-                        orderSendDetail.setQty(qty1);
+                        orderSendDetail.setQty(qty);
                         orderDetails.add(orderSendDetail);
                     }
 
@@ -245,8 +263,6 @@ public class TrolleyActivity extends AppCompatActivity implements AccountContrac
             public void onResponse(Call<OrderSend> call, Response<OrderSend> response) {
                 loading.dismiss();
                 Toast.makeText(mContext, "Order Sukses", Toast.LENGTH_LONG).show();
-                OrderSend orderSendData = response.body();
-                Log.d("Response Body ", orderSendData.toString());
                 Intent intent = new Intent(TrolleyActivity.this, MainActivity.class);
                 startActivity(intent);
             }

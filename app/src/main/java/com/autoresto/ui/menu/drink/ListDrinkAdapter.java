@@ -1,6 +1,5 @@
 package com.autoresto.ui.menu.drink;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.autoresto.R;
 import com.autoresto.model.Menu;
-import com.autoresto.session.TroliData;
-import com.autoresto.session.TroliSession;
+import com.autoresto.ui.trolley.session.TroliData;
+import com.autoresto.ui.trolley.session.TroliSession;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -117,7 +116,7 @@ public class ListDrinkAdapter extends RecyclerView.Adapter<ListDrinkAdapter.List
                         if (drink.isChecked()) {
                             troliSession.addtroliData(data);
                         } else {
-                            troliSession.removetroliData(data, drink.getId());
+                            troliSession.removetroliData(drink.getId());
                         }
                     }
                 });
@@ -125,17 +124,4 @@ public class ListDrinkAdapter extends RecyclerView.Adapter<ListDrinkAdapter.List
         }
     }
 
-    public List<Menu> getAll() {
-        return drinkList;
-    }
-
-    public List<Menu> getSelected() {
-        List<Menu> selected = new ArrayList<>();
-        for (int i = 0; i < drinkList.size(); i++) {
-            if (drinkList.get(i).isChecked()) {
-                selected.add(drinkList.get(i));
-            }
-        }
-        return selected;
-    }
 }

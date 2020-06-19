@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.callcenter.CallCenterActivity"></activity>
+        <activity android:name=".ui.selecttable.SelectTableActivity"></activity>
+        <activity android:name=".ui.callcenter.CallCenterActivity" />
         <activity android:name=".ui.about.AboutActivity" />
         <activity android:name=".ui.service.ServiceActivity" />
         <activity android:name=".ui.trolley.TrolleyActivity" />
