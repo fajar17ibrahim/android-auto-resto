@@ -18,10 +18,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.autoresto.MainActivity;
 import com.autoresto.R;
+import com.autoresto.model.ErrorResponse;
 import com.autoresto.network.ApiInterface;
 import com.autoresto.ui.registrasi.RegisterActivity;
 import com.autoresto.utils.ApiUtils;
 import com.autoresto.utils.Constans;
+import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -133,7 +135,8 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     } else if (response.code() == 401) {
                         try {
-                            JSONObject jsonRESULTS = new JSONObject(response.body().string());
+                            Log.d("Error response body ", response.errorBody().toString());
+                             JSONObject jsonRESULTS = new JSONObject(response.errorBody().toString());
                             String message = jsonRESULTS.getString("message");
                             Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {

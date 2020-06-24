@@ -1,5 +1,7 @@
 package com.autoresto.model;
 
+import androidx.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 public class ErrorResponse {
@@ -13,6 +15,13 @@ public class ErrorResponse {
     @SerializedName("message")
     private String message;
 
+    public ErrorResponse(String toString) {
+
+    }
+
+    public ErrorResponse() {
+
+    }
 
     public int getStatusCode() {
         return statusCode;
@@ -38,9 +47,5 @@ public class ErrorResponse {
         this.message = message;
     }
 
-    public ErrorResponse(int statusCode, String error, String message) {
-        this.statusCode = statusCode;
-        this.error = error;
-        this.message = message;
-    }
+
 }

@@ -121,7 +121,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         Call<Register> call = apiService.sendRegister(register);
         call.enqueue(new Callback<Register>() {
             @Override
-            public void onResponse(Call<Register> call, Response<Register> response) {
+            public void onResponse(Call<Register> call, Response<Register > response) {
                 loading.dismiss();
                 Log.e("Response Code ", String.valueOf(response.code()));
 
@@ -135,6 +135,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     }
                 } else if(response.code() == 401 ) {
                     try {
+
                         JSONObject jsonRESULTS = new JSONObject(response.body().toString());
                         String message = jsonRESULTS.getString("message");
                         Toast.makeText(mContext, message + response.code(), Toast.LENGTH_LONG).show();

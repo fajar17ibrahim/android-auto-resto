@@ -3,8 +3,10 @@ package com.autoresto.utils;
 import com.autoresto.network.ApiClient;
 import com.autoresto.network.ApiInterface;
 
+import retrofit2.Converter;
+
 public class ApiUtils {
-    public static final String BASE_URL_API = "http://35.240.141.139:8083/api/v1/";
+    public static final String BASE_URL_API = "http://35.247.145.123:8083/api/v1/";
 
     // Mendeklarasikan Interface ApiInterface
     public static ApiInterface getAPIService(){
