@@ -136,9 +136,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 } else if(response.code() == 401 ) {
                     try {
 
-                        JSONObject jsonRESULTS = new JSONObject(response.body().toString());
-                        String message = jsonRESULTS.getString("message");
-                        Toast.makeText(mContext, message + response.code(), Toast.LENGTH_LONG).show();
+//                        JSONObject jsonRESULTS = new JSONObject(response.body().toString());
+//                        String message = jsonRESULTS.getString("message");
+                        Toast.makeText(mContext, "Registrasi gagal. Data username, email, atau nomor telepon yang anda input sudah terdaftar!" + response.code(), Toast.LENGTH_LONG).show();
                     } catch(Exception e){
                         e.printStackTrace();
                     }

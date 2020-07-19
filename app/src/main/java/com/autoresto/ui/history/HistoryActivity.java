@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.autoresto.R;
 import com.autoresto.model.Order;
+import com.autoresto.ui.orderdetail.OrderDetailActivity;
 import com.autoresto.utils.Constans;
 
 import java.util.ArrayList;
@@ -42,6 +44,8 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
 
     private List<Order> list;
 
+    private Context mContex;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +54,8 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
         sharedPreferences = getSharedPreferences(Constans.MY_SHARED_PREFERENCES, Context.MODE_PRIVATE);
         token = sharedPreferences.getString(Constans.TAG_TOKEN, "token");
         Log.d("Token ", token);
+
+        mContex = this;
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -83,6 +89,17 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
         listHistoryAdapter = new ListHistoryAdapter(this, list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(listHistoryAdapter);
+
+        listHistoryAdapter.setOnItemClickCallback(new ListHistoryAdapter.OnItemClickCallback() {
+            @Override
+            public void onItemClicked(Order order) {
+                Intent iOrderDetail = new Intent(HistoryActivity.this, OrderDetailActivity.class);
+                Bundle data = new Bundle();
+                data.putInt(Constans.TAG_ORDER_ID, order.getId());
+                iOrderDetail.putExtras(data);
+                startActivity(iOrderDetail);
+            }
+        });
 
     }
 

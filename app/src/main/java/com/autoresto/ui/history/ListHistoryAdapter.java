@@ -19,9 +19,15 @@ public class ListHistoryAdapter extends RecyclerView.Adapter<ListHistoryAdapter.
 
     private List<Order> orderList;
 
+    private OnItemClickCallback onItemClickCallback;
+
     public ListHistoryAdapter(HistoryActivity historyActivity, List<Order> orderList) {
         this.historyActivity = historyActivity;
         this.orderList = orderList;
+    }
+
+    public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback;
     }
 
     @NonNull
@@ -32,12 +38,19 @@ public class ListHistoryAdapter extends RecyclerView.Adapter<ListHistoryAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ListViewHolder holder, int position) {
         Order order = orderList.get(position);
 
         holder.tvOrderId.setText(order.getQr_code());
         holder.tvStatus.setText("Order selesai");
         holder.tvCreatedAt.setText(order.getCreated_at());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickCallback.onItemClicked(orderList.get(holder.getAdapterPosition()));
+            }
+        });
 
     }
 
@@ -57,5 +70,9 @@ public class ListHistoryAdapter extends RecyclerView.Adapter<ListHistoryAdapter.
             tvStatus = (TextView) itemView.findViewById(R.id.tv_status);
             tvCreatedAt = (TextView) itemView.findViewById(R.id.tv_created_at);
         }
+    }
+
+    public interface OnItemClickCallback {
+        void onItemClicked(Order order);
     }
 }

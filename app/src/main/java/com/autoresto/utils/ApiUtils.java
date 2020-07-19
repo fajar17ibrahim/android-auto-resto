@@ -6,7 +6,7 @@ import com.autoresto.network.ApiInterface;
 import retrofit2.Converter;
 
 public class ApiUtils {
-    public static final String BASE_URL_API = "http://35.247.145.123:8083/api/v1/";
+    public static final String BASE_URL_API = "http://13.67.54.62:8083/api/v1/";
 
     // Mendeklarasikan Interface ApiInterface
     public static ApiInterface getAPIService(){

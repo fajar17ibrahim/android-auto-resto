@@ -135,10 +135,10 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     } else if (response.code() == 401) {
                         try {
-                            Log.d("Error response body ", response.errorBody().toString());
-                             JSONObject jsonRESULTS = new JSONObject(response.errorBody().toString());
-                            String message = jsonRESULTS.getString("message");
-                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+//                            Log.d("Error response body ", response.errorBody().toString());
+//                            JSONObject jsonRESULTS = new JSONObject(response.errorBody().toString());
+//                            String message = jsonRESULTS.getString("message");
+                            Toast.makeText(mContext, "Login gagal. Username atau Password tidak cocok", Toast.LENGTH_SHORT).show();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
